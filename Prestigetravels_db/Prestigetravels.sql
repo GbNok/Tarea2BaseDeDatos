@@ -8,8 +8,16 @@ CREATE TABLE usuario (
 );
 
 CREATE TABLE carrito (
-    id_carrito INT IDENTITY PRIMARY KEY,
-    id_usuario INT FOREIGN KEY REFERENCES usuario(id_usuario)
+  id_carrito INT IDENTITY PRIMARY KEY,
+  id_usuario INT FOREIGN KEY REFERENCES usuario(id_usuario)
+  usuario_id INT,
+  hotel_paquete_id INT,
+  nombre VARCHAR(100),
+  precio INT,
+  total_pagar INT,
+  total_pagar_descuento DECIMAL(10, 2),
+  FOREIGN KEY (hotel_paquete_id) REFERENCES hoteles(id) ON DELETE CASCADE,
+  FOREIGN KEY (hotel_paquete_id) REFERENCES paquetes(id) ON DELETE CASCADE
 );
 
 CREATE TABLE hoteles (
@@ -45,4 +53,14 @@ CREATE TABLE paquetes (
   paquetes_disponibles INT,
   paquetes_totales INT,
   max_personas_paquete INT
+);
+
+
+CREATE TABLE wishlist (
+  usuario_id INT,
+  hotel_paquete_id INT,
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+  FOREIGN KEY (hotel_paquete_id) REFERENCES hoteles(id) ON DELETE CASCADE,
+  FOREIGN KEY (hotel_paquete_id) REFERENCES paquetes(id) ON DELETE CASCADE,
+  PRIMARY KEY (usuario_id, hotel_paquete_id)
 );
