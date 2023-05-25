@@ -1,5 +1,5 @@
 CREATE TABLE usuario (
-  id_usuario INT IDENTITY(1, 1) PRIMARY KEY,
+  id_usuario INT AUTO_INCREMENT PRIMARY KEY,
   id_carrito INT FOREIGN KEY REFERENCES carrito(id_carrito),
   nombre VARCHAR(50),
   contrasenia VARCHAR(100),

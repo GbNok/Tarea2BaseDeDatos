@@ -4,6 +4,18 @@
         die("Connection failed");
     }
     echo "Connected successfully";
+
+    session_start();
+    if(!isset($_SESSION['usuario'])){
+        echo '
+            <script>
+                alert("Debes iniciar sesión");
+                window.location = "login_mg.php";
+            </script>
+        ';
+        session_destroy();
+        die();
+    }
 ?> 
 
 
@@ -20,7 +32,7 @@
         $message = "Hello, world!";
         echo "<p>$message</p>";
     ?>
-    <a href="index.php"> Crear usuario </a>
+    <a href="logout.php"> Cerrar sesion</a>
 </body>
 </html>
 

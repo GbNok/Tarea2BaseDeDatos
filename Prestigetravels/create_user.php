@@ -9,9 +9,10 @@
 
     $correo = $_POST['correo'];
     $usuario = $_POST['usuario'];
+    $password = $_POST['password'];
     echo "<h1> $correo</h1>";
 
-    $query = "INSERT INTO usuario(correo, nombre) VALUES('$correo','$usuario')";
+    $query = "INSERT INTO usuario(correo, nombre, contrasenia) VALUES('$correo','$usuario', '$password')";
     
     $verificar_correo = mysqli_query($conn, "SELECT * FROM usuario WHERE correo='$correo' ");
     if(mysqli_num_rows($verificar_correo) > 0){
