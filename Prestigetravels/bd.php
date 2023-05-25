@@ -1,3 +1,3 @@
 <?php
-    $conn = mysqli_connect("localhost", "nok", "Hola123!", "Prestigetravels");
+    $conn = mysqli_connect("localhost", "Zamquin", "hola123!", "Prestigetravels");
 ?>
