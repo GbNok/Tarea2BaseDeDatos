@@ -1,14 +1,7 @@
 <?php
-    $servername = "localhost";
-    $username = "nok";
-    $password = "Hola123!";
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    include 'bd.php';
+    if (!$conn) {
+        die("Connection failed");
     }
     echo "Connected successfully";
 ?> 
@@ -27,6 +20,7 @@
         $message = "Hello, world!";
         echo "<p>$message</p>";
     ?>
+    <a href="index.php"> Crear usuario </a>
 </body>
 </html>
 
