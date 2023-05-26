@@ -3,15 +3,17 @@ include 'carrito2.php';
 include 'templates/cabecera.php';
 ?>
 
-
+    <?php  if($mensaje!=""){  ?>
     <div class="container">
         <br/>
         <div class="alert alert-success">
             
         <?php echo($mensaje) ?>
-            <a href="#" class="badge badge-success">Ver carrito </a>
+            <a href="mostrarcarrito.php" class="badge badge-success">Ver carrito </a>
         </div>
     </div>
+    <?php }?>
+
     <div class="row">
     <?php
     include 'bd.php';
