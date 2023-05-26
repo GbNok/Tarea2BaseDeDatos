@@ -28,7 +28,6 @@
     <h1>Welcome to my PHP view!</h1>
     
     <?php
-        // PHP code can be inserted here
         $message = "Hello, world!";
         echo "<p>$message</p>";
     ?>

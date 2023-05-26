@@ -4,7 +4,7 @@
 
 
 <?php
-
+    session_start();
     include 'bd.php';
 
     $correo = $_POST['correo'];
@@ -40,11 +40,12 @@
     $ejecutar = mysqli_query($conn, $query);
 
     if($ejecutar) {
-        echo "<h1> Creado </h1>";
+        $row = mysqli_fetch_array(mysqli_query($conn, "SELECT id_usuario FROM usuario WHERE correo='$correo'"));
+        $_SESSION['usuario'] = $row['id_usuario'];
         echo '
             <script>
                 alert("Usuario almacenado exitosamente");
-                window.location = "index.php";
+                window.location = "info.php";
             </script>
         ';
     } else {
