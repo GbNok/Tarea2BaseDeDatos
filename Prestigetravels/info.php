@@ -16,6 +16,7 @@
         session_destroy();
         die();
     }
+    include "template/cabecera.php"
 ?> 
 
 

@@ -1,6 +1,6 @@
 <?php
 include 'carrito2.php';
-include 'templates/cabecera.php';
+include 'template/cabecera.php';
 ?>
 
     <?php  if($mensaje!=""){  ?>
@@ -17,7 +17,7 @@ include 'templates/cabecera.php';
     <div class="row">
     <?php
     include 'bd.php';
-    $sentencia = $conn->prepare("SELECT * FROM hoteles");
+    $sentencia = $conn->prepare("SELECT * FROM hotel");
     $sentencia->execute();
     $resultado = $sentencia->get_result();
     $hoteles = array();
@@ -37,7 +37,7 @@ include 'templates/cabecera.php';
                     <p class="card-text">descrpcion</p>
 
                 <form action="" method="post">
-                    <input type="hidden" name="id" id="id" value="<?php echo $hotel['id'];?>">
+                    <input type="hidden" name="id" id="id" value="<?php echo $hotel['id_hotel'];?>">
                     <input type="hidden" name="nombre" id="nombre" value="<?php echo $hotel['nombre'];?>">
                     <input type="hidden" name="precio" id="precio" value="<?php echo $hotel['precio_noche'];?>">
                     <input type="hidden" name="cantidad" id="cantidad" value="<?php echo 1;?>">

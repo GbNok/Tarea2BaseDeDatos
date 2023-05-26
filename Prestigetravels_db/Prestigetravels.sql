@@ -11,10 +11,10 @@ CREATE TABLE carrito (
     id_usuario INT,
     id_paquete INT,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
-    FOREIGN KEY (id_paquete) REFERENCES paquete(id_paquete)
+    FOREIGN KEY (id_paquete) REFERENCES paquete(id_paquete),
     precio INT,
     total_pagar INT,
-    total_pagar_descuento DECIMAL(10, 2),
+    total_pagar_descuento DECIMAL(10, 2)
 );
 
 
@@ -26,7 +26,7 @@ CREATE TABLE wishlist (
 );
 
 CREATE TABLE paquete (
-    id_paquete INT AUTO_INCREMENT PRIMARY KEY,
+    id_paquete INT AUTO_INCREMENT PRIMARY KEY
 );
 
 CREATE TABLE reserva (
@@ -51,7 +51,7 @@ CREATE TABLE vuelos (
 
 CREATE TABLE hotel (
     id_hotel INT AUTO_INCREMENT PRIMARY KEY,
-      nombre VARCHAR(100),
+    nombre VARCHAR(100),
     precio_noche INT,
     ciudad VARCHAR(50),
     habitaciones_totales INT,
@@ -67,6 +67,6 @@ CREATE TABLE rating (
     id_usuario INT,
     id_hotel INT,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
-    FOREIGN KEY (id_hotel) REFERENCES hoteles(id_hotel),
+    FOREIGN KEY (id_hotel) REFERENCES hotel(id_hotel),
     rating INT
 );

@@ -1,6 +1,6 @@
 <?php
 include 'carrito2.php';
-include 'templates/cabecera.php';
+include 'template/cabecera.php';
 ?>
 
 <br>
