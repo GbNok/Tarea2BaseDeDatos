@@ -1,3 +1,4 @@
+-- Active: 1685140741227@@localhost@3306@prestigetravels
 CREATE TABLE usuario (
   id_usuario INT AUTO_INCREMENT PRIMARY KEY,
   id_carrito INT, 

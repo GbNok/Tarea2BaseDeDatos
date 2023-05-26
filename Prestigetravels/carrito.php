@@ -1,6 +1,6 @@
 <?php
 include 'carrito2.php';
-include 'template/cabecera.php';
+include 'template/header.php';
 ?>
 
     <?php  if($mensaje!=""){  ?>
