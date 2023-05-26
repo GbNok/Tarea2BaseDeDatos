@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -19,12 +20,12 @@
                     <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                 </lvscode-file://vscode-app/c:/Users/56966/AppData/Local/Programs/Microsoft%20VS%20Code/resources/app/out/vs/code/electron-sandbox/workbench/workbench.htmli>
                 <li class="nav-item">
-                    <a class="nav-link" href="mostrarcarrito.php" tabindex="-1" aria-disabled="true">Carrito(0)</a>
+                    <a class="nav-link" href="mostrarcarrito.php" tabindex="-1" aria-disabled="true">Carrito (<?php 
+                        echo(empty($_SESSION['CARRITO']))?0:count($_SESSION['CARRITO']);
+                    ?>)</a>
                 </li>
             </ul>
         </div>
     </nav>
     <br/>
     <br/>
-
-    
