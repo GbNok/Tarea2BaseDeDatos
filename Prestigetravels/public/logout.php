@@ -1,5 +1,4 @@
 <?php
     session_start();
     session_destroy();
-    header ("location: login_mg.php");
-?>
+    header ("location: login.php");

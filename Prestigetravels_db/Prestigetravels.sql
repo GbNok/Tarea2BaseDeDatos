@@ -3,7 +3,7 @@ CREATE TABLE usuario (
   id_usuario INT AUTO_INCREMENT PRIMARY KEY,
   id_carrito INT, 
   nombre VARCHAR(50),
-  contrasenia VARCHAR(100),
+  contrasenia VARCHAR(255),
   fecha_nacimiento DATE,
   correo VARCHAR(100)
 );
@@ -18,7 +18,10 @@ CREATE TABLE carrito (
     total_pagar_descuento DECIMAL(10, 2)
 );
 
+-- carito <--->> reserva <<---> hotel
+--        <<--->> paquete
 
+producto 
 CREATE TABLE wishlist (
     id_usuario INT,
     id_paquete INT,
