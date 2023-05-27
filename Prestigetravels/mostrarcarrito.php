@@ -16,7 +16,7 @@ include 'template/header.php';
             <th width="5%"> --</th>
         </tr>
         <?php $total = 0; ?>
-        <?php foreach($_SESSION['CARRITO'] as $indice=>$producto): ?>
+        <?php foreach($_SESSION['CARRITO'] as $indice=>$producto){?>
         <tr>
             <td width="40%"> <?php echo $producto['nombre']?></th>
             <td width="15%"> <?php echo $producto['cantidad']?></th>
@@ -33,7 +33,7 @@ include 'template/header.php';
 
         </tr>
         <?php $total=$total+($producto['precio']*$producto['cantidad']); ?>
-        <?php endforeach ?>
+        <?php } ?>
         <tr>
         <td colspan="3" align="right"><h3>total</h3> </td>
         <td align="right"><h3>$<?php echo number_format($total,2);?> </h3></td>

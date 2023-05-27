@@ -1,4 +1,4 @@
--- Active: 1685140741227@@localhost@3306@prestigetravels
+-- SQLBook: Code
 CREATE TABLE usuario (
   id_usuario INT AUTO_INCREMENT PRIMARY KEY,
   id_carrito INT, 
@@ -52,7 +52,7 @@ CREATE TABLE paquete (
   FOREIGN KEY (hospedaje3) REFERENCES hotel(id_hotel),
   ciudad1 VARCHAR(50),
   ciudad2 VARCHAR(50),
-  ciudad3 VARCHAR(50),
+  ciudad3 VARCHAR(50)
 );
 
 CREATE TABLE reserva (
