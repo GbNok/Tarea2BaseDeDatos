@@ -83,5 +83,6 @@ CREATE TABLE rating (
     id_hotel INT,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
     FOREIGN KEY (id_hotel) REFERENCES hotel(id_hotel),
-    rating INT
+    rating INT,
+    comment TEXT
 );
