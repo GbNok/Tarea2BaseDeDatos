@@ -8,20 +8,30 @@ CREATE TABLE usuario (
   correo VARCHAR(100)
 );
 
+
 CREATE TABLE carrito (
+    id_carrito INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT,
-    id_paquete INT,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
-    FOREIGN KEY (id_paquete) REFERENCES paquete(id_paquete),
     precio INT,
     total_pagar INT,
     total_pagar_descuento DECIMAL(10, 2)
 );
 
+
+CREATE TABLE producto (
+    id_carrito INT,
+    id_reserva INT,
+    id_paquete INT,
+    FOREIGN KEY (id_carrito) REFERENCES carrito(id_carrito),
+    FOREIGN KEY (id_reserva) REFERENCES reserva(id_reserva),
+    FOREIGN KEY (id_paquete) REFERENCES paquete(id_paquete)
+);
+
 -- carito <--->> reserva <<---> hotel
 --        <<--->> paquete
 
-producto 
+-- producto 
 CREATE TABLE wishlist (
     id_usuario INT,
     id_paquete INT,
@@ -30,26 +40,27 @@ CREATE TABLE wishlist (
 );
 
 CREATE TABLE paquete (
-    id_paquete INT AUTO_INCREMENT PRIMARY KEY
+    -- id_paquete INT AUTO_INCREMENT PRIMARY KEY
+  id_paquete INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100),
+  aerolinea_ida VARCHAR(50),
+  hospedaje1 INT, 
+  FOREIGN KEY (hospedaje1) REFERENCES hotel(id_hotel),
+  hospedaje2 INT, 
+  FOREIGN KEY (hospedaje2) REFERENCES hotel(id_hotel),
+  hospedaje3 INT,
+  FOREIGN KEY (hospedaje3) REFERENCES hotel(id_hotel),
+  ciudad1 VARCHAR(50),
+  ciudad2 VARCHAR(50),
+  ciudad3 VARCHAR(50),
 );
 
 CREATE TABLE reserva (
-    id_paquete INT,
+    id_reserva INT AUTO_INCREMENT PRIMARY KEY,
     id_hotel INT,
-    FOREIGN KEY (id_paquete) REFERENCES paquete(id_paquete),
     FOREIGN KEY (id_hotel) REFERENCES hotel(id_hotel),
     fecha_inicio DATE,
     fecha_fin DATE
-);
-
-CREATE TABLE vuelos (
-    id_paquete INT,
-    FOREIGN KEY (id_paquete) REFERENCES paquete(id_paquete),
-    aerolinea VARCHAR(50),
-    aeropuerto_salida VARCHAR(10), 
-    aeropuerto_llegada VARCHAR(10),
-    fecha_salida DATE,
-    fecha_llegada DATE 
 );
 
 
