@@ -1,0 +1,31 @@
+version: '3'
+services:
+    web:
+        image: nginx:latest
+        ports:
+            - "80:80"
+        volumes:
+            - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
+            - ./Prestigetravels:/app
+    php:
+        build:
+            context: .
+            dockerfile: PHP.Dockerfile
+        volumes:
+            - ./Prestigetravels:/app
+        environment:
+            DB_HOST: 'mysql'
+            DB_NAME: 'tarea2'
+            DB_USER: 'alumno'
+            DB_PASS: 'secret0'
+    mysql:
+        image: mariadb:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: 'mile4dispense_slink'
+            MYSQL_USER: 'alumno'
+            MYSQL_PASSWORD: 'secret0'
+            MYSQL_DATABASE: 'tarea2'
+        volumes:
+            - ./mysqldata:/var/lib/mysql
+        ports:
+            - 3306:3306

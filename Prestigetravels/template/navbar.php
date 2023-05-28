@@ -13,15 +13,19 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a href="/index.php" class="navbar-item">
+      <a href="/" class="navbar-item">
         Home
       </a>
 
-      <a class="navbar-item">
-        Documentacion
+      <a class="navbar-item" href="/index.php?product_type=packages">
+        Paquetes
       </a>
 
-      <div class="navbar-item has-dropdown is-hoverable">
+      <a class="navbar-item" href="/index.php?product_type=hotels">
+        Hoteles
+      </a>
+
+      <div class=" navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
           Más
         </a>
@@ -36,7 +40,7 @@
           <a class="navbar-item">
             Contacto
           </a>
-          <hr class="navbar-divider" >
+          <hr class="navbar-divider">
           <a class="navbar-item" href="https://github.com/GbNok/Tarea2BaseDeDatos/issues/new" target="_blank">
             Reportar un problema
           </a>
@@ -48,7 +52,7 @@
       <div class="navbar-item">
         <div class="buttons">
           <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) : ?>
-          <a href="/user_profile.php" class="button is-primary">
+          <a href="/profile.php" class="button is-primary">
             <span class="icon">
               <i class="fas fa-user"></i>
             </span>
@@ -60,7 +64,7 @@
             </span>
             <span>Cerrar Sesión</span>
           </a>
-            <?php else : ?>
+          <?php else : ?>
           <a href="/signup.php" class="button is-primary">
             <strong>Sign up</strong>
           </a>
@@ -71,7 +75,7 @@
             <span>Sign In</span>
           </a>
 
-            <?php endif ?>
+          <?php endif ?>
         </div>
       </div>
     </div>

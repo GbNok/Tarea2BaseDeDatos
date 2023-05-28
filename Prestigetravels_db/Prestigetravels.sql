@@ -28,8 +28,8 @@ CREATE TABLE producto (
     FOREIGN KEY (id_paquete) REFERENCES paquete(id_paquete)
 );
 
--- carito <--->> reserva <<---> hotel
---        <<--->> paquete
+-- carito <--->> producto <-----> reserva <<---> hotel
+--               producto<<--->> paquete
 
 -- producto 
 CREATE TABLE wishlist (
@@ -54,6 +54,7 @@ CREATE TABLE paquete (
   ciudad2 VARCHAR(50),
   ciudad3 VARCHAR(50)
 );
+
 
 CREATE TABLE reserva (
     id_reserva INT AUTO_INCREMENT PRIMARY KEY,

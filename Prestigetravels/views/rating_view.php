@@ -1,8 +1,8 @@
 <?php 
-foreach($hotels as &$hotel) {
-    echo $hotel["nombre"];
-}
-?>
+// foreach($hotels as &$hotel) {
+//     echo $hotel["nombre"];
+// }
+// ?>
 
 <form acction="/rating.php" method="POST" class="box">
     <input class="input" type="text" placeholder="comentario (opcional)" name="comment">
