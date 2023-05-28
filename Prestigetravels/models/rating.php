@@ -24,5 +24,15 @@ class Rating{
             ":hotel_id" => $hotel_id
         ]);
     }
+
+    public static function getRatings($user_id){
+        $stmt = DB::getInstance()->prepare(
+            "SELECT * FROM rating WHERE id_usuario = :user_id"
+        );
+        $stmt->execute([":user_id" => $user_id]);
+
+        return $stmt->fetch();
+
+    }
 }
 

@@ -1,5 +1,5 @@
 <?php
 foreach($items as &$item){
-    echo "hola";
-    echo $item["nombre"];
+    // echo "hola";
+    echo "<p>$item</p>";
 }

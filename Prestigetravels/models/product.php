@@ -1,4 +1,6 @@
 <?php
+require_once "../db.php";
+
 class Product {
     private function __construct() {}
 
@@ -7,7 +9,7 @@ class Product {
             "SELECT * FROM producto WHERE id_carrito = :cart_id"
         );
         $stmt->execute([":cart_id" => $cart_id]);
-        return $stmt->fetch();
+        return $stmt->fetchALL();
     } 
 
     public static function getPackages($product){

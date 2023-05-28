@@ -74,7 +74,7 @@ CREATE TABLE hotel (
     estacionamiento BOOLEAN,
     piscina BOOLEAN,
     lavanderia BOOLEAN,
-    pet_friendly BOOLEAN,
+    pet_friendly BOOLEAN1111,
     servicio_desayuno BOOLEAN
 );
 
@@ -84,5 +84,5 @@ CREATE TABLE rating (
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
     FOREIGN KEY (id_hotel) REFERENCES hotel(id_hotel),
     rating INT,
-    comment TEXT
+    comentario TEXT
 );

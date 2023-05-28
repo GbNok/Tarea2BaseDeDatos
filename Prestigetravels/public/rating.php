@@ -1,5 +1,6 @@
 <?php
 require_once "../models/rating.php";
+require_once "../models/hotel.php";
 
 session_start();
 if (!isset($_SESSION["user"])){
@@ -10,6 +11,7 @@ if (!isset($_SESSION["user"])){
 $method = $_SERVER["REQUEST_METHOD"];
 
 if ($method === "GET"){
+    $hotels = Hotel::getHotels();
     $page = "../views/rating_view.php";
     require_once "../template/main.php";
 }
@@ -24,4 +26,5 @@ if ($method === "POST"){
         Rating::addComment($user_id, $comment, $hotel_id);
     }
 
+    header("location: /user_profile.php");
 }

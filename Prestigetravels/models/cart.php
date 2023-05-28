@@ -27,7 +27,7 @@ class Cart {
             );
 
             $stmt->execute([":id_paquete" => $producto["id_producto"]]);
-            $productos.array_push($stmt->fetch());
+            $productos.array_push($stmt->fetchALL(PDO::FETCH_ASSOC));
         } elseif (isset($producto["id_reserva"])){
             $stmt = DB::getInstance()->prepare(
                 "SELECT * FROM reserva WHERE id_reserva = :id_reserva"
@@ -39,8 +39,10 @@ class Cart {
             );    
 
             $stmt->execute([":id_hotel" => $hotel_id]);
-            echo $stmt->fetch()["nombre"];
-            $productos.array_push($stmt->fetch());
+            // echo $stmt->fetch()["nombre"];
+            $hotel = $stmt->Fetch()["nombre"];
+            // echo $hotel["nombre"];
+            array_push($productos, $hotel);
         } 
 
       }
