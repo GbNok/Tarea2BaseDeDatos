@@ -31,8 +31,18 @@ class Rating{
         );
         $stmt->execute([":user_id" => $user_id]);
 
-        return $stmt->fetch();
+        $all_ratings = $stmt->fetchALL();
+        $rev = array();
+        foreach($all_ratings as &$rating){
+            $stmt = DB::getInstance()->prepare(
+                "SELECT nombre FROM hotel WHERE id_hotel = :hotel_id"
+            );
+            $stmt->execute([":hotel_id" => $rating["id_hotel"]]);
+            $hotel = $stmt->fetch()["nombre"];
 
+            array_push($rev, [$hotel, $rating]);
+        }
+        return $rev;
     }
 }
 

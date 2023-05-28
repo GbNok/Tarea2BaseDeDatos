@@ -39,9 +39,8 @@ class Cart {
             );    
 
             $stmt->execute([":id_hotel" => $hotel_id]);
-            // echo $stmt->fetch()["nombre"];
-            $hotel = $stmt->Fetch()["nombre"];
-            // echo $hotel["nombre"];
+            
+            $hotel = $stmt->fetch()["nombre"];
             array_push($productos, $hotel);
         } 
 
