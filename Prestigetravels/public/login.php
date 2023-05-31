@@ -1,24 +1,27 @@
 <?php
 session_start();
 require_once "../models/user.php";
+require_once "../core/view.php";
 
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'GET') {
-  $page_title = 'Login';
-  $page = "../views/login_view.php";
-  require_once "../template/main.php";
+  View::render('login_view.php', [
+    'page_title' => 'Login'
+  ]);
 } elseif ($method === 'POST') {
   $email = $_POST['email'];
   $password = $_POST['password'];
-  
   
   [$user, $err] = User::login($email, $password);
 
   if (!empty($err)) {
     $error_message = $err;
-    $page = "../views/login_view.php";
-    require_once "../template/main.php";
+    View::render('login_view.php', [
+      'page_title' => 'Login',
+      'error_message' => $err,
+      'email' => $email
+    ]);
     die();
   }
 

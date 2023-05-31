@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once '../core/view.php';
 
 // TODO: Do search with these fields:
 $start_date = $_GET['start_date'] ?? null;
@@ -30,7 +31,14 @@ $highest_rated = [
   ['id' => 14, 'type' => 'package', 'name' => 'Caribbean pirate cruise', 'price' => '180', 'rating' => 2.2, 'available_qty' => 7],
 ];
 
-$page = "../views/main_page/index_view.php";
-$page_hero = "Hoteles & Paquetes";
-$page_hero_subtitle = "Encuentra tus vacaciones soñadas";
-require_once "../template/main.php";
+View::render('main_page/index_view.php', [
+  'page_hero' => "Hoteles & Paquetes",
+  'page_hero_subtitle' => "Encuentra tus vacaciones soñadas",
+  'highest_availability' => $highest_availability,
+  'highest_rated' => $highest_rated,
+  'start_date' => $_GET['start_date'] ?? null,
+  'end_date' => $_GET['end_date'] ?? null,
+  'city' => $_GET['city'] ?? null,
+  'product_type' => $_GET['product_type'] ?? null,
+  'search_term' => $_GET['search_term'] ?? null
+]);

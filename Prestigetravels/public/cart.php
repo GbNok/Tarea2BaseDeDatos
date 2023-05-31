@@ -1,4 +1,5 @@
 <?php
+require_once '../core/view.php';
 require_once '../models/cart.php';
 
 session_start();
@@ -13,10 +14,11 @@ if ($method === "GET"){
     $user_id = $_SESSION["user"]["id"];
     $items = Cart::getAll($user_id);
     
-    $page = "../views/cart_view.php";
-    require_once "../template/main.php";
-
-}elseif (method === "POST"){
+    View::render('cart_view.php', [
+        'user_id' => $user_id,
+        'items' => $items
+    ]);
+} elseif ($method === "POST"){
     // borrar
 }
 

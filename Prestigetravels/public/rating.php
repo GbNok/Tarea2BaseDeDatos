@@ -1,4 +1,5 @@
 <?php
+require_once "../core/view.php";
 require_once "../models/rating.php";
 require_once "../models/hotel.php";
 
@@ -11,9 +12,10 @@ if (!isset($_SESSION["user"])){
 $method = $_SERVER["REQUEST_METHOD"];
 
 if ($method === "GET"){
-    $hotels = Hotel::getHotels();
-    $page = "../views/rating_view.php";
-    require_once "../template/main.php";
+    View::render('rating_view.php', [
+        'page_title' => 'Rating',
+        'hotels' => Hotel::getAll()
+    ]);
 }
 if ($method === "POST"){
     $comment = $_POST["comment"];

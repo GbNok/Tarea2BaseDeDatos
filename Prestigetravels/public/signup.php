@@ -1,13 +1,13 @@
 <?php
 session_start();
 require_once "../models/user.php";
+require_once "../core/view.php";
 
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === "GET"){
     $page_title = 'Login';
-    $page = "../views/signup_view.php";
-    require_once "../template/main.php";
+    View::render('signup_view.php');
 }elseif ($method === "POST"){
     $name = $_POST["name"];
     $email = $_POST["email"];
@@ -20,7 +20,9 @@ if ($method === "GET"){
 
     }
 
-    if (User::existsEmail($email)) {
+    if (empty($email)) {
+      $errors['email'] = 'Correo es requierido';
+    } else if (User::existsEmail($email)) {
       $errors['email'] = 'Correo ya ocupado. Porfavor elige otro';
     }
 
@@ -33,11 +35,14 @@ if ($method === "GET"){
     }
 
     if (!empty($errors)){
-        $page = "../views/signup_view.php";
-        require_once "../template/main.php";
-        die();
+        View::render('signup_view.php', [
+          'name' => $name,
+          'email' => $email,
+          'password' => $password,
+          'birth_date' => $birth_date,
+          'errors' => $errors
+        ]);
     }
-    // echo $birth_date;
     User::create($name, $email, $password, $birth_date);
     
     header('Location: /login.php');

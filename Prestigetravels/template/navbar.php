@@ -52,7 +52,7 @@
       <div class="navbar-item">
         <div class="buttons">
           <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) : ?>
-          <a href="/profile.php" class="button is-primary">
+          <a href="/user_profile.php" class="button is-primary">
             <span class="icon">
               <i class="fas fa-user"></i>
             </span>

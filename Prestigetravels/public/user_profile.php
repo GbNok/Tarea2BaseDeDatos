@@ -1,5 +1,6 @@
 <?php
 require_once "../models/rating.php";
+require_once "../core/view.php";
 session_start();
 
 if (!isset($_SESSION["user"])){
@@ -13,4 +14,8 @@ $page_title = $_SESSION["user"]["name"];
 
 $ratings = Rating::getRatings($user_id);
 
-require_once "../template/main.php";
+View::render('user_profile_view.php', [
+    'page_title' => $_SESSION['user']['name'],
+    'user_id' => $_SESSION['user']['id'],
+    'ratings' => $ratings
+]);

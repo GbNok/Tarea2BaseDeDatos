@@ -4,7 +4,7 @@ require_once "../db.php";
 class Hotel {
     private function __construct(){}
 
-    public static function getHotels(){
+    public static function getAll(){
         $stmt = DB::getInstance()->prepare(
             "SELECT nombre FROM hotel"
         );
