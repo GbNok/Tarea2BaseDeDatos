@@ -48,4 +48,21 @@ class Cart {
       return $productos;
   }
 
+    public static function addToCart($user_id, $hotel_id){ //TODO add reservation info to parameters
+        $cart_id = Cart::getCartId($user_id)["id_carrito"];
+        
+        $stmt = DB::getInstance()->prepare(
+            "INSERT INTO reserva(id_hotel) VALUES (:hotel_id)"  //TODO add information to reservation
+        );
+        $stmt->execute([":hotel_id" => $hotel_id]);
+        
+        $stmt = DB::getInstance()->prepare(
+            "SELECT LAST_INSERT_ID();"  
+        );
+        $stmt->execute();
+        $res_id = $stmt->fetch()["id_reserva"];
+
+        $product = Product::newProduct($res_id, $cart_id);
+        //update cart info
+    }
 }
