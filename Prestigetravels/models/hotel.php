@@ -13,17 +13,13 @@ class Hotel {
         return $stmt->fetchALL(PDO::FETCH_ASSOC);
     }
 
-    public static function addToCart($user_id, $hotel_id){ //TODO add reservation info to parameters
-        $cart_id = Cart::getCartId($user_id)["id_carrito"];
+    public static function getInfo($hotel_id){
         $stmt = DB::getInstance()->prepare(
-            "INSERT INTO reserva(id_hotel) VALUES (:hotel_id)"  //TODO add information to reservation
+            "SELECT * FROM hotel WHERE id_hotel = :hotel_id"
         );
-        $stmt->execute([":hotel_id" => $hotel_id]);
-        
-        $stmt = DB::getInstance()->prepare(
-            "SELECT LAST_INSERT_ID();"  
-        );
-        $stmt->execute();
-        $res_id = $stmt->fetch();
+        $stmt->execute(['hotel_id' => $hotel_id]);
+    
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
 }

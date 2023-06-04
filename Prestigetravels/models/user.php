@@ -5,6 +5,16 @@ class User {
 
   private function __construct() {}
 
+  public static function getInfo($user_id){
+    $stmt = DB::getInstance()->prepare(
+      "SELECT nombre, correo, fecha_nacimiento FROM usuario WHERE id_usuario = :user_id"
+    );
+
+    $stmt->execute(["user_id" => $user_id]);
+    return $stmt->fetch();
+  }
+
+
   public static function getByEmail($email) {
     $stmt = DB::getInstance()->prepare(
       "SELECT * FROM usuario WHERE correo = :email"
@@ -54,4 +64,58 @@ class User {
       ":birth_date" => $birth_date
     ]);
   }
+
+  public static function delete($user_id){
+    $stmt = DB::getInstance()->prepare(
+      "DELETE FROM usuario WHERE id_usuario = :user_id"
+    );
+    $stmt->execute([":user_id" => $user_id]);
+  }
+
+  public static function getWishlist($user_id){
+    $stmt = DB::getInstance()->prepare(
+      "SELECT * FROM wishlist WHERE id_usuario = :user_id"
+    );
+    $stmt->execute([":user_id" => $user_id]);
+
+    $arr = [];
+    $products = $stmt->fetchALL();
+
+    foreach($products as $product){
+      if (isset($product["hotel_id"])){
+        $stmt = DB::getInstance()->prepare(
+          "SELECT * FROM hotel WHERE id_hotel = :hotel_id"
+        );
+        $stmt->execute([":hotel_id" => $product["hotel_id"]]);
+
+        $hotel = $stmt->fetch();
+        array_push($arr, $hotel);
+      } if (isset($product["id_paquete"])){
+        $stmt = DB::getInstance()->prepare(
+            "SELECT * FROM paquete WHERE id_paquete = :package_id"
+        );
+        $stmt->execute([":package_id" => $product["paquete_id"]]);
+
+        $package = $stmt->fetch();
+        array_push($arr, $package);
+      }
+    }
+        return $arr;
+    }
+
+  public static function addWishlist($user_id, $hotel_id, $package_id){
+    if (isset($hotel_id)){
+      $stmt = DB::getInstance()->prepare(
+        "INSERT INTO wishlist(id_usuario, id_hotel) VALUES (:user_id, :hotel_id)"
+      );
+      $stmt->execute([":user_id" => $user_id, ":hotel_id" => $hotel_id]);
+    } elseif (isset($package_id)){
+      $stmt = DB::getInstance()->prepare(
+        "INSERT INTO wishlist(id_usuario, id_paquete) VALUES (:user_id, :package_id)"
+      );
+      $stmt->execute([":user_id" => $user_id, ":package_id" => $package_id]);
+      
+    }
+  }
+  
 }

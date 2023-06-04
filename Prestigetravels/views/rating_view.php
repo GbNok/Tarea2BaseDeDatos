@@ -9,7 +9,7 @@ require_once "../db.php";
   <?php
 
     foreach($hotels as &$hotel){
-        echo '<option value="' . $hotel["id_hotel"] . '">' . $row["nombre"] . '</option>';
+        echo '<option value="' . $hotel["id_hotel"] . '">' . $hotel["nombre"] . '</option>';
     }
 
 

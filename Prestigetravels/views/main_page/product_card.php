@@ -33,7 +33,8 @@
       </div>
     </div>
     <footer class="card-footer">
-      <a class="card-footer-item">Ver Mas</a>
-      <a class="card-footer-item">+ Wishlist</a>
+      
+      <a class="card-footer-item" href="hotel.php?productoId=<?= $product['id'] ?>">Ver Más</a>
+      <a class="card-footer-item" name="wishlist_add" value=<?php $product["id"] ?>>+ Wishlist</a> 
     </footer>
   </div>

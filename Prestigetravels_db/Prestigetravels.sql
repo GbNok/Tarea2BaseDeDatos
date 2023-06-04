@@ -20,7 +20,7 @@ CREATE TABLE carrito (
 
 
 CREATE TABLE producto (
-    id_carrito INT,
+    id_carrito INThttps://prod.liveshare.vsengsaas.visualstudio.com/join?0C51E45EE77771C97C5CC12871AB440326C7,
     id_reserva INT,
     id_paquete INT,
     FOREIGN KEY (id_carrito) REFERENCES carrito(id_carrito),
@@ -34,9 +34,20 @@ CREATE TABLE producto (
 -- producto 
 CREATE TABLE wishlist (
     id_usuario INT,
+    id_hotel INT,
     id_paquete INT,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
-    FOREIGN KEY (id_paquete) REFERENCES paquete(id_paquete)
+    FOREIGN KEY (id_hotel) REFERENCES hotel(id_hotel),
+    FOREIGN KEY (id_paquete) REFERENCES paquete(id_paquete),
+);
+
+CREATE TABLE wishlistelem (
+    id_wishlist INT,
+    id_hotel INT,
+    id_paquete INT,
+    FOREIGN KEY (id_wishlist) REFERENCES wishlist(id_wishlist),
+    FOREIGN KEY (id_hotel) REFERENCES hotel(id_hotel),
+    FOREIGN KEY (id_paquete) REFERENCES paquete(id_paquete),
 );
 
 CREATE TABLE paquete (
