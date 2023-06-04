@@ -10,7 +10,7 @@ if (!isset($_SESSION["user"])){
 }
 
 $method = $_SERVER["REQUEST_METHOD"];
-
+    
 if ($method === "GET"){
     View::render('rating_view.php', [
         'page_title' => 'Rating',

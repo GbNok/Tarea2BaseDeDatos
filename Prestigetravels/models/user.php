@@ -71,36 +71,36 @@ class User {
     );
     $stmt->execute([":user_id" => $user_id]);
   }
-
+  
   public static function getWishlist($user_id){
     $stmt = DB::getInstance()->prepare(
       "SELECT * FROM wishlist WHERE id_usuario = :user_id"
     );
     $stmt->execute([":user_id" => $user_id]);
-
     $arr = [];
     $products = $stmt->fetchALL();
-
+    
     foreach($products as $product){
-      if (isset($product["hotel_id"])){
+      if (isset($product["id_hotel"])){
         $stmt = DB::getInstance()->prepare(
           "SELECT * FROM hotel WHERE id_hotel = :hotel_id"
         );
-        $stmt->execute([":hotel_id" => $product["hotel_id"]]);
-
+        $stmt->execute([":hotel_id" => $product["id_hotel"]]);
+        
         $hotel = $stmt->fetch();
+        
         array_push($arr, $hotel);
       } if (isset($product["id_paquete"])){
         $stmt = DB::getInstance()->prepare(
             "SELECT * FROM paquete WHERE id_paquete = :package_id"
         );
-        $stmt->execute([":package_id" => $product["paquete_id"]]);
-
+        $stmt->execute([":package_id" => $product["id_paquete"]]);
         $package = $stmt->fetch();
+        echo $package["nombre"];
         array_push($arr, $package);
       }
     }
-        return $arr;
+    return $arr;
     }
 
   public static function addWishlist($user_id, $hotel_id, $package_id){
