@@ -10,6 +10,10 @@ $product_type = $_GET['product_type'] ?? null;
 $search_term = $_GET['search_term'] ?? null;
 
 // $highest_availability = Product::findHighestAvailability(..., limit: 4);
+
+
+
+
 $highest_availability = [
   ['id' => 1, 'type' => 'package', 'name' => 'Praya dos osos', 'price' => '130', 'rating' => 3.2, 'available_qty' => 12],
   ['id' => 2, 'type' => 'hotel', 'name' => 'Magic hotel', 'price' => '100', 'rating' => 4.1, 'available_qty' => 10],

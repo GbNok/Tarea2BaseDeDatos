@@ -22,4 +22,41 @@ class Product {
         );
         $stmt->execute([":res_id" => $res_id, ":cart_id" => $cart_id]);
     }
+    public static function findHighestAvailability(){
+        $stmt = DB::getInstance()->prepare("
+            SELECT id_hotel AS id, nombre, habitaciones_disponibles AS cantidad
+            FROM hotel
+            UNION ALL
+            SELECT id_paquete AS id, nombre, cantidad
+            FROM paquete
+        ");
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        usort($result, function($a, $b) {
+            return $b['cantidad'] - $a['cantidad'];
+        });
+        return array_slice($result, 0, 4);
+    }
+    public static function findHighestRatedHotels(){
+        $stmt = DB::getInstance()->prepare("
+            SELECT id_hotel AS id, nombre, rating
+            FROM hotel
+            ORDER BY rating DESC
+            LIMIT 10
+        ");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function findHighestRatedPackages(){
+        $stmt = DB::getInstance()->prepare("
+            SELECT id_paquete AS id, nombre, rating
+            FROM paquete
+            ORDER BY rating DESC
+            LIMIT 10
+        ");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }

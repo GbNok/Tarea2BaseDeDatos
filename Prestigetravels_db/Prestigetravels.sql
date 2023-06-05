@@ -50,6 +50,7 @@ CREATE TABLE hotel (
     lavanderia BOOLEAN,
     pet_friendly BOOLEAN,
     servicio_desayuno BOOLEAN
+    rating DECIMAL(5,2)
 );
 
 CREATE TABLE rating (
@@ -74,24 +75,37 @@ CREATE TABLE paquete (
   FOREIGN KEY (hospedaje3) REFERENCES hotel(id_hotel),
   ciudad1 VARCHAR(50),
   ciudad2 VARCHAR(50),
-  ciudad3 VARCHAR(50)
+  ciudad3 VARCHAR(50),
+  cantidad INT
+  rating DECIMAL(5,2) 
 );
 
- DELIMITER //
+DELIMITER //
 
-CREATE TRIGGER actualizar_rating_hotel AFTER INSERT ON rating
+CREATE TRIGGER actualizar_rating AFTER INSERT ON rating
 FOR EACH ROW
 BEGIN
   DECLARE promedio_rating DECIMAL(5, 2);
+  
+  IF NEW.id_hotel IS NOT NULL THEN
+    SELECT AVG(rating) INTO promedio_rating
+    FROM rating
+    WHERE id_hotel = NEW.id_hotel;
 
+    UPDATE hotel
+    SET rating = promedio_rating
+    WHERE id_hotel = NEW.id_hotel;
+  END IF;
+  
+  IF NEW.id_paquete IS NOT NULL THEN
+    SELECT AVG(rating) INTO promedio_rating
+    FROM rating
+    WHERE id_paquete = NEW.id_paquete;
 
-  SELECT AVG(rating) INTO promedio_rating
-  FROM rating
-  WHERE id_hotel = NEW.id_hotel;
-
-  UPDATE hotel
-  SET rating = promedio_rating
-  WHERE id_hotel = NEW.id_hotel;
+    UPDATE paquete
+    SET rating = promedio_rating
+    WHERE id_paquete = NEW.id_paquete;
+  END IF;
 END //
 
-DELIMITER ; 
+DELIMITER ;
