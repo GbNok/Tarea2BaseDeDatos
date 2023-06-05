@@ -65,4 +65,18 @@ class Cart {
         $product = Product::newProduct($res_id, $cart_id);
         //update cart info
     }
+
+    
+    public static function getTotalCartPrice($user_id) {
+        $stmt = DB::getInstance()->prepare(
+            "SELECT SUM(precio) AS total_price FROM carrito WHERE id_usuario = :user_id"
+        );
+        $stmt->execute([":user_id" => $user_id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        return $result['total_price'];
+}
+
+
+
 }
