@@ -16,14 +16,18 @@ class Rating
         return $stmt->fetch();
     }
 
-    public static function addRating($user_id, $rating, $hotel_id)
+    public static function addRating($user_id, $ratings, $hotel_id)
     {
         $stmt = DB::getInstance()->prepare(
-            "INSERT INTO rating (id_usuario, rating, id_hotel) VALUES (:user_id, :rating, :hotel_id)"
+            "INSERT INTO rating(id_usuario, ratingLimpieza, ratingServicio, ratingDecoracion, ratingCalidadCamas, ratingPromedio , id_hotel) VALUES (:user_id, :ratingL, :ratingS, :ratingD, :ratingCC, :ratingP, :hotel_id)"
         );
         $stmt->execute([
             ":user_id" => $user_id,
-            ":rating" => $rating,
+            ":ratingL" => $ratings["limpieza"],
+            ":ratingS" => $ratings["servicio"],
+            ":ratingD" => $ratings["decoracion"],
+            ":ratingCC" => $ratings["calidadCamas"],
+            ":ratingP" => $ratings["prom"],
             ":hotel_id" => $hotel_id
         ]);
     }

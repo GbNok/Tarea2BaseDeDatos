@@ -55,14 +55,22 @@ CREATE TABLE rating (
     id_hotel INT,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
     FOREIGN KEY (id_hotel) REFERENCES hotel(id_hotel),
-    rating INT,
+    ratingLimpieza INT,
+    ratingServicio INT,
+    ratingDecoracion INT,
+    ratingCalidadCamas INT, 
+    ratingPromedio DECIMAL(5, 2),
     comentario TEXT
 );
 
 CREATE TABLE paquete (
     id_paquete INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100),
+    paquetes_disponibles INT,
+    precio INT,
+    limite_personas INT,
     aerolinea_ida VARCHAR(50),
+    aerolinea_vuelta VARCHAR(50),
     hospedaje1 INT,
     FOREIGN KEY (hospedaje1) REFERENCES hotel(id_hotel),
     hospedaje2 INT,
@@ -72,11 +80,20 @@ CREATE TABLE paquete (
     ciudad1 VARCHAR(50),
     ciudad2 VARCHAR(50),
     ciudad3 VARCHAR(50),
-    cantidad INT,
     rating DECIMAL(5, 2)
 );
 
-DELIMITER / / CREATE TRIGGER actualizar_rating
+CREATE TABLE compra(
+    id_usuario INT,
+    id_hotel INT,
+    id_paquete INT,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+    FOREIGN KEY (id_hotel) REFERENCES hotel(id_hotel),
+    FOREIGN KEY (id_paquete) REFERENCES paquete(id_paquete)
+);
+
+
+DELIMITER // CREATE TRIGGER actualizar_rating
 AFTER
 INSERT
     ON rating FOR EACH ROW BEGIN DECLARE promedio_rating DECIMAL(5, 2);

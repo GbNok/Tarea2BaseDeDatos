@@ -150,81 +150,136 @@
       </form>
     <?php endif ?>
   </div>
-
+  
+  <?php if (empty($rating)){ ?>
   <h3 class="title is-3">Reseñas</h3>
   <form acction="/rating.php" method="POST" class="box">
     <input class="input" type="text" placeholder="comentario (opcional)" name="comment">
-    <!-- <input class="input" type="number" placeholder="rating" name="rating"> -->
+    <!-- <input class="input" type="number" placeholder="rating" name="rating"> -->  
+    <div class="field">
+    <label class="label">Limpieza</label>
+    <div class="control">
+        <div class="rating-stars">
+            <input type="radio" id="star5" name="ratingLimpieza" value="5">
+            <label for="star5" class="star"></label>
+            <input type="radio" id="star4" name="ratingLimpieza" value="4">
+            <label for="star4" class="star"></label>
+            <input type="radio" id="star3" name="ratingLimpieza" value="3">
+            <label for="star3" class="star"></label>
+            <input type="radio" id="star2" name="ratingLimpieza" value="2">
+            <label for="star2" class="star"></label>
+            <input type="radio" id="star1" name="ratingLimpieza" value="1">
+            <label for="star1" class="star"></label>
+        </div>
+      </div>
+    </div>
 
     <div class="field">
-      <label class="label">Limpieza</label>
-      <div class="control">
+    <label class="label">Servicio</label>
+    <div class="control">
         <div class="rating-stars">
-          <input type="radio" id="star5" name="rating1" value="5">
-          <label for="star5" class="star"></label>
-          <input type="radio" id="star4" name="rating1" value="4">
-          <label for="star4" class="star"></label>
-          <input type="radio" id="star3" name="rating1" value="3">
-          <label for="star3" class="star"></label>
-          <input type="radio" id="star2" name="rating1" value="2">
-          <label for="star2" class="star"></label>
-          <input type="radio" id="star1" name="rating1" value="1">
-          <label for="star1" class="star"></label>
+            <input type="radio" id="star5" name="ratingServicio" value="5">
+            <label for="star5" class="star"></label>
+            <input type="radio" id="star4" name="ratingServicio" value="4">
+            <label for="star4" class="star"></label>
+            <input type="radio" id="star3" name="ratingServicio" value="3">
+            <label for="star3" class="star"></label>
+            <input type="radio" id="star2" name="ratingServicio" value="2">
+            <label for="star2" class="star"></label>
+            <input type="radio" id="star1" name="ratingServicio" value="1">
+            <label for="star1" class="star"></label>
         </div>
-      </div>
     </div>
-    <div class="field">
-      <label class="label">Servicio</label>
-      <div class="control">
+</div>
+
+<div class="field">
+    <label class="label">Decoración</label>
+    <div class="control">
         <div class="rating-stars">
-          <input type="radio" id="star5" name="rating2" value="5">
-          <label for="star5" class="star"></label>
-          <input type="radio" id="star4" name="rating2" value="4">
-          <label for="star4" class="star"></label>
-          <input type="radio" id="star3" name="rating2" value="3">
-          <label for="star3" class="star"></label>
-          <input type="radio" id="star2" name="rating2" value="2">
-          <label for="star2" class="star"></label>
-          <input type="radio" id="star1" name="rating2" value="1">
-          <label for="star1" class="star"></label>
+            <input type="radio" id="star5" name="ratingDecoracion" value="5">
+            <label for="star5" class="star"></label>
+            <input type="radio" id="star4" name="ratingDecoracion" value="4">
+            <label for="star4" class="star"></label>
+            <input type="radio" id="star3" name="ratingDecoracion" value="3">
+            <label for="star3" class="star"></label>
+            <input type="radio" id="star2" name="ratingDecoracion" value="2">
+            <label for="star2" class="star"></label>
+            <input type="radio" id="star1" name="ratingDecoracion" value="1">
+            <label for="star1" class="star"></label>
         </div>
-      </div>
     </div>
-    <div class="field">
-      <label class="label">Decoracion</label>
-      <div class="control">
+</div>
+
+<div class="field">
+    <label class="label">Calidad de las Camas</label>
+    <div class="control">
         <div class="rating-stars">
-          <input type="radio" id="star5" name="rating3" value="5">
-          <label for="star5" class="star"></label>
-          <input type="radio" id="star4" name="rating3" value="4">
-          <label for="star4" class="star"></label>
-          <input type="radio" id="star3" name="rating3" value="3">
-          <label for="star3" class="star"></label>
-          <input type="radio" id="star2" name="rating3" value="2">
-          <label for="star2" class="star"></label>
-          <input type="radio" id="star1" name="rating3" value="1">
-          <label for="star1" class="star"></label>
+            <input type="radio" id="star5" name="ratingCalidadCamas" value="5">
+            <label for="star5" class="star"></label>
+            <input type="radio" id="star4" name="ratingCalidadCamas" value="4">
+            <label for="star4" class="star"></label>
+            <input type="radio" id="star3" name="ratingCalidadCamas" value="3">
+            <label for="star3" class="star"></label>
+            <input type="radio" id="star2" name="ratingCalidadCamas" value="2">
+            <label for="star2" class="star"></label>
+            <input type="radio" id="star1" name="ratingCalidadCamas" value="1">
+            <label for="star1" class="star"></label>
         </div>
-      </div>
     </div>
-    <div class="field">
-      <label class="label">Calidad de camas</label>
-      <div class="control">
-        <div class="rating-stars">
-          <input type="radio" id="star5" name="rating4" value="5">
-          <label for="star5" class="star"></label>
-          <input type="radio" id="star4" name="rating4" value="4">
-          <label for="star4" class="star"></label>
-          <input type="radio" id="star3" name="rating4" value="3">
-          <label for="star3" class="star"></label>
-          <input type="radio" id="star2" name="rating4" value="2">
-          <label for="star2" class="star"></label>
-          <input type="radio" id="star1" name="rating4" value="1">
-          <label for="star1" class="star"></label>
-        </div>
-      </div>
-    </div>
+</div>
 
     <button> Publicar </button>
   </form>
+  <?php } elseif (!empty($rating)){ ?>
+    <div class="field">
+    <label class="label">Limpieza</label>
+    <div class="control">
+        <div class="rating-stars">
+            <?php foreach (range(1, 5) as $value): ?>
+                <input type="radio" id="star<?= $value ?>" name="ratingLimpieza" value="<?= $value ?>" <?= $rating["ratingLimpieza"] == $value ? 'checked' : '' ?> disabled>
+                <label for="star<?= $value ?>" class="star"></label>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+<div class="field">
+    <label class="label">Servicio</label>
+    <div class="control">
+        <div class="rating-stars">
+            <?php foreach (range(1, 5) as $value): ?>
+                <input type="radio" id="star<?= $value ?>" name="ratingServicio" value="<?= $value ?>" <?= $rating["ratingServicio"] == $value ? 'checked' : '' ?> disabled>
+                <label for="star<?= $value ?>" class="star"></label>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+
+<div class="field">
+    <label class="label">Decoracion</label>
+    <div class="control">
+        <div class="rating-stars">
+            <?php foreach (range(1, 5) as $value): ?>
+                <input type="radio" id="star<?= $value ?>" name="ratingDecoracion" value="<?= $value ?>" <?= $rating["ratingDecoracion"] == $value ? 'checked' : '' ?> disabled>
+                <label for="star<?= $value ?>" class="star"></label>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+<div class="field">
+    <label class="label">Calidad Camas</label>
+    <div class="control">
+        <div class="rating-stars">
+            <?php foreach (range(1, 5) as $value): ?>
+                <input type="radio" id="star<?= $value ?>" name="ratingCalidadCamas" value="<?= $value ?>" <?= $rating["ratingCalidadCamas"] == $value ? 'checked' : '' ?> disabled>
+                <label for="star<?= $value ?>" class="star"></label>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    <?php } ?>
 </div>

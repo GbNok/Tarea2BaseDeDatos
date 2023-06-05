@@ -26,4 +26,17 @@ class Hotel
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+
+    public static function getName($hotel_id)
+    {
+    $stmt = DB::getInstance()->prepare(
+        "SELECT nombre FROM hotel WHERE id_hotel = :hotel_id"
+    );
+    $stmt->execute(['hotel_id' => $hotel_id]);
+
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['nombre'];
+    }
+
 }

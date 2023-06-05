@@ -138,7 +138,6 @@ class User
       $stmt = DB::getInstance()->prepare(
         "INSERT INTO carrito(id_usuario, id_hotel, cantidad) VALUES (:user_id, :hotel_id, :quantity)"
       );
-
       $stmt->execute([
         ":user_id" => $user_id,
         ":hotel_id" => $hotel_id,
@@ -169,6 +168,19 @@ class User
     return $stmt->fetchAll();
   }
 
+  public static function getCartPackages($user_id)
+  {
+    $stmt = DB::getInstance()->prepare(
+      "SELECT * FROM carrito JOIN paquete ON carrito.id_paquete = paquete.id_paquete WHERE carrito.id_usuario = :user_id"
+    );
+
+    $stmt->execute([
+      ":user_id" => $user_id,
+    ]);
+
+    return $stmt->fetchAll();
+  }
+
   public static function isHotelInCart($user_id, $hotel_id)
   {
     $stmt = DB::getInstance()->prepare(
@@ -178,6 +190,22 @@ class User
     $stmt->execute([
       ":user_id" => $user_id,
       ":hotel_id" => $hotel_id,
+    ]);
+
+    $count = $stmt->fetchColumn();
+
+    return $count > 0;
+  }
+
+  public static function isPackageInCart($user_id, $package_id)
+  {
+    $stmt = DB::getInstance()->prepare(
+      "SELECT COUNT(1) FROM carrito WHERE id_usuario = :user_id AND id_paquete = :package_id"
+    );
+
+    $stmt->execute([
+      ":user_id" => $user_id,
+      ":package_id" => $package_id,
     ]);
 
     $count = $stmt->fetchColumn();
@@ -196,6 +224,15 @@ class User
         ":user_id" => $user_id,
         ":hotel_id" => $hotel_id,
       ]);
+    } elseif (isset($package_id)) {
+      $stmt = DB::getInstance()->prepare(
+        "DELETE FROM carrito WHERE id_usuario = :user_id AND id_paquete = :package_id"
+      );
+
+      $stmt->execute([
+        ":user_id" => $user_id,
+        ":package_id" => $package_id,
+      ]);
     }
   }
 
@@ -210,5 +247,29 @@ class User
     ]);
 
     return $stmt->fetchColumn();
+  }
+
+
+  public static function comprar($user_id)
+  {
+    $hotels = self::getCartHotels($user_id);
+    $packages = self::getCartPackages($user_id);
+
+    foreach($hotels as &$hotel){
+      $stmt = DB::getInstance()->prepare(
+        "INSERT INTO compra(id_usuario, id_hotel) VALUES (:user_id, :hotel_id)"
+      );
+      $stmt->execute([":user_id" => $user_id, ":hotel_id" => $hotel["id_hotel"]]);
+    }
+    foreach($packages as &$package){
+      $stmt = DB::getInstance()->prepare(
+        "INSERT INTO compra(id_usuario, id_paquete) VALUES (:user_id, :package_id)"
+      );
+      $stmt->execute([":user_id" => $user_id, ":package_id" => $hotel["id_paquete"]]);
+    }
+    $stmt = DB::getInstance()->prepare(
+      "DELETE FROM carrito WHERE id_usuario = :user_id"
+    );
+    $stmt->execute([":user_id" => $user_id]);
   }
 }
