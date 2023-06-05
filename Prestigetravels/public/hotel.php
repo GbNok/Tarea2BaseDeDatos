@@ -1,23 +1,25 @@
 <?php
-
-include "../models/hotel.php";
-include "../models/rating.php";
-include "../core/view.php";
+require_once __DIR__ . "/../core/index.php";
+require_once __DIR__ . "/../models/hotel.php";
+require_once __DIR__ . "/../models/user.php";
+require_once __DIR__ . "/../models/rating.php";
 
 session_start();
-if (!isset($_SESSION["user"])){
-    header("Location: /login.php");
-    die();
-}
+SessionUtils::assertLoggedIn();
 
-
+$user_id = $_SESSION['user']['id'];
 $method = $_SERVER["REQUEST_METHOD"];
-$hotel_id = $_GET['productoId'];
+$hotel_id = $_GET['id'];
 
-if ($method === "GET"){
+if ($method === "GET") {
     $hotel_info = Hotel::getInfo($hotel_id);
+    if (!$hotel_info) {
+        View::render("not_found.php", ["message" => "Hotel no encontrado"]);
+    }
+    $is_hotel_in_cart = User::isHotelInCart($user_id, $hotel_id);
 
     View::render("hotel_view.php", [
+        'hotel_id' => $hotel_id,
         'name_hotel' => $hotel_info["nombre"],
         'precio_noche' => $hotel_info["precio_noche"],
         'ciudad' => $hotel_info["ciudad"],
@@ -27,19 +29,19 @@ if ($method === "GET"){
         'piscina' => $hotel_info["piscina"],
         'lavanderia' => $hotel_info["lavanderia"],
         'pet_friendly' => $hotel_info["pet_friendly"],
-        'servicio_desayuno' => $hotel_info["servicio_desayuno"]
+        'servicio_desayuno' => $hotel_info["servicio_desayuno"],
+        'is_hotel_in_cart' => $is_hotel_in_cart
     ]);
 
-}elseif ($method === "POST"){
+} elseif ($method === "POST") {
     $comment = $_POST["comment"];
     $rating = $_POST["rating"];
     $user_id = $_SESSION["user"]["id"];
 
     Rating::addRating($user_id, $rating, $hotel_id);
-    if (isset($comment)){
+    if (isset($comment)) {
         Rating::addComment($user_id, $comment, $hotel_id);
     }
 
-    header("location: /hotel.php");
-
+    View::redirect("/hotel.php?id=$hotel_id");
 }

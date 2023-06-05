@@ -1,18 +1,18 @@
-<?php 
-include "../models/paquete.php";
-include "../core/view.php";
+<?php
+require_once __DIR__ . "/../models/paquete.php";
+require_once __DIR__ . "/../core/index.php";
 
 session_start();
-if (!isset($_SESSION["user"])){
-    header("Location: /login.php");
-    die();
-}
+SessionUtils::assertLoggedIn();
 
 $method = $_SERVER["REQUEST_METHOD"];
 $producto_id = $_GET['productoId'];
 
-if ($method === "GET"){
+if ($method === "GET") {
     $product_info = Paquete::getInfo($producto_id);
+    if (!$product_info) {
+        View::render("not_found.php", ["message" => "Paquete no encontrado"]);
+    }
 
     View::render("paquete_view.php", [
         'name' => $product_info["nombre"],
@@ -26,10 +26,10 @@ if ($method === "GET"){
 
     ]);
 
-} elseif ($method === "POST"){
+} elseif ($method === "POST") {
     $comment = $_POST["comment"];
     $rating = $_POST["rating"];
     $user_id = $_SESSION["user"]["id"];
 
-    header("location: /paquete.php");
+    View::redirect("/paquete.php");
 }

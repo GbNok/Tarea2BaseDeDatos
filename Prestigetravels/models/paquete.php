@@ -1,13 +1,17 @@
 <?php
-require_once "../db.php";
+require_once __DIR__ . "/../db.php";
 
 
 
 
-class Paquete {
-    private function __construct(){}
+class Paquete
+{
+    private function __construct()
+    {
+    }
 
-    public static function getAll(){
+    public static function getAll()
+    {
         $stmt = DB::getInstance()->prepare(
             "SELECT * FROM paquete"
         );
@@ -16,7 +20,8 @@ class Paquete {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getInfo($paquete_id){
+    public static function getInfo($paquete_id)
+    {
         $stmt = DB::getInstance()->prepare(
             "SELECT * FROM paquete WHERE id_paquete = :paquete_id"
         );

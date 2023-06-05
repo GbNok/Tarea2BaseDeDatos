@@ -1,6 +1,7 @@
 <?php
+require_once '../core/index.php';
+
 session_start();
-require_once '../core/view.php';
 
 // TODO: Do search with these fields:
 $start_date = $_GET['start_date'] ?? null;
@@ -15,9 +16,9 @@ $search_term = $_GET['search_term'] ?? null;
 
 
 $highest_availability = [
-  ['id' => 1, 'type' => 'package', 'name' => 'Praya dos osos', 'price' => '130', 'rating' => 3.2, 'available_qty' => 12],
+  ['id' => 1, 'type' => 'hotel', 'name' => 'Praya dos osos', 'price' => '130', 'rating' => 3.2, 'available_qty' => 12],
   ['id' => 2, 'type' => 'hotel', 'name' => 'Magic hotel', 'price' => '100', 'rating' => 4.1, 'available_qty' => 10],
-  ['id' => 3, 'type' => 'hotel', 'name' => 'Deadly Hotel', 'price' => '120', 'rating' => 4.7, 'available_qty' => 9],
+  ['id' => 3, 'type' => 'package', 'name' => 'Deadly Hotel', 'price' => '120', 'rating' => 4.7, 'available_qty' => 9],
   ['id' => 4, 'type' => 'package', 'name' => 'Caribbean pirate cruise', 'price' => '180', 'rating' => 3.9, 'available_qty' => 7],
 ];
 

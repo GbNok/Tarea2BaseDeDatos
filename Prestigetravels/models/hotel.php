@@ -1,10 +1,14 @@
 <?php
-require_once "../db.php";
+require_once __DIR__ . "/../db.php";
 
-class Hotel {
-    private function __construct(){}
+class Hotel
+{
+    private function __construct()
+    {
+    }
 
-    public static function getAll(){
+    public static function getAll()
+    {
         $stmt = DB::getInstance()->prepare(
             "SELECT * FROM hotel"
         );
@@ -13,13 +17,13 @@ class Hotel {
         return $stmt->fetchALL(PDO::FETCH_ASSOC);
     }
 
-    public static function getInfo($hotel_id){
+    public static function getInfo($hotel_id)
+    {
         $stmt = DB::getInstance()->prepare(
             "SELECT * FROM hotel WHERE id_hotel = :hotel_id"
         );
         $stmt->execute(['hotel_id' => $hotel_id]);
-    
+
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
 }

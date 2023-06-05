@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  <?php require_once "../template/navbar.php" ?>
+  <?php require_once __DIR__."/../template/navbar.php" ?>
   <?php if (isset($page_hero)) :?>
   <section class="hero is-medium <?= $page_hero_type ?? 'is-info' ?>">
     <div class="hero-body">
@@ -23,10 +23,8 @@
     </div>
   </section>
   <?php endif; ?>
-  <div class="container">
-    <?php include $page ?>
-  </div>
-  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <?php include $page ?>
+  <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
 </body>
 
 </html>

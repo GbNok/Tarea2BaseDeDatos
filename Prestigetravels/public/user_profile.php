@@ -1,13 +1,10 @@
 <?php
-require_once "../models/rating.php";
-require_once "../models/user.php";
-require_once "../core/view.php";
-session_start();
+require_once __DIR__ . "/../models/rating.php";
+require_once __DIR__ . "/../models/user.php";
+require_once __DIR__ . "/../core/index.php";
 
-if (!isset($_SESSION["user"])){
-    header("Location: /login.php");
-    die();
-}
+session_start();
+SessionUtils::assertLoggedIn();
 
 $user_id = $_SESSION["user"]["id"];
 $page = "../views/user_profile_view.php";
@@ -20,8 +17,7 @@ $info = User::getInfo($user_id);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id_to_delete = $_POST['user_id'];
     User::delete($user_id_to_delete);
-    header("Location: /login.php");
-    exit();
+    View::redirect("/login.php");
 }
 
 
