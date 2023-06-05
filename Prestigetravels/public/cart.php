@@ -15,7 +15,7 @@ if ($method === "GET"){
     $items = Cart::getAll($user_id);
     $precio_total = Cart::getTotalCartPrice($user_id); 
     $descuento = 0;
-    if (isset($_SESSION['offer_accepted'])) {
+    if (isset($_SESSION['accept-button'])) {
         $precio_total *= 0.9;
         $descuento = 10;
     }

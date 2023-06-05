@@ -3,7 +3,13 @@
 <div class="cart-items">
   <h3>Items del carrito:</h3>
   <?php foreach ($items as $item): ?>
-    <p><?php echo $item; ?></p>
+    <?php if (is_array($item)): ?>
+      <?php $nombre = $item['nombre']; ?>
+      <?php $precio = $item['precio']; ?>
+      <p><?php echo $nombre; ?> - $<?php echo $precio; ?></p>
+    <?php else: ?>
+      <p><?php echo $item; ?></p>
+    <?php endif; ?>
   <?php endforeach; ?>
 </div>
 
