@@ -44,5 +44,6 @@ View::render('main_page/index_view.php', [
   'end_date' => $_GET['end_date'] ?? null,
   'city' => $_GET['city'] ?? null,
   'product_type' => $_GET['product_type'] ?? null,
-  'search_term' => $_GET['search_term'] ?? null
+  'search_term' => $_GET['search_term'] ?? null,
+  'randomnumber' => mt_rand(1, 100)
 ]);

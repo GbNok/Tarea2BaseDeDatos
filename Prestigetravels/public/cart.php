@@ -18,6 +18,9 @@ if ($method === "GET"){
         'user_id' => $user_id,
         'items' => $items
     ]);
+
+
+    
 } elseif ($method === "POST"){
     // borrar
 }

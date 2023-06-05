@@ -1,6 +1,69 @@
 <?php require_once '../core/view.php' ?>
 <?php require_once 'search_bar.php' ?>
 
+<?php
+
+if ($randomNumber <= 20) {
+    echo '
+    <style>
+    .popup {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+    }
+
+    .popup-content {
+      background-color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .popup-content h2 {
+      font-size: 24px;
+    }
+
+    .popup-content p {
+      font-size: 18px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .buttons button {
+      margin: 0 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    </style>
+    
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <h2>¡Oferta especial!</h2>
+        <p>Obtén un 10% de descuento en tu compra.</p>
+        <div class="buttons">
+          <button id="accept-button">Aceptar</button>
+          <button id="reject-button">Rechazar</button>
+        </div>
+      </div>
+    </div>
+    ';
+}
+?>
+
+
+
+
+
 <h3 class="title is-3">Mejores Resultados Disponibles</h3>
 
 <section class="section px-0">
