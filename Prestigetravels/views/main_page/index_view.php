@@ -1,9 +1,9 @@
 <?php require_once '../core/view.php' ?>
 <?php require_once 'search_bar.php' ?>
 
-<?php
 
-if ($randomNumber <= 20) {
+<?php
+if ($randomnumber <= 20) {
     echo '
     <style>
     .popup {
@@ -56,6 +56,16 @@ if ($randomNumber <= 20) {
         </div>
       </div>
     </div>
+    
+    <script>
+      document.getElementById("accept-button").addEventListener("click", function() {
+        document.getElementById("popup").style.display = "none";
+      });
+
+      document.getElementById("reject-button").addEventListener("click", function() {
+        document.getElementById("popup").style.display = "none";
+      });
+    </script>
     ';
 }
 ?>
