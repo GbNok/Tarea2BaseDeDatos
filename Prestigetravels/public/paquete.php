@@ -13,12 +13,13 @@ $producto_id = $_GET['productoId'];
 
 if ($method === "GET") {
     $product_info = Paquete::getInfo($producto_id);
+    $rating = Rating::findRating($user_id, $producto_id);
     if (!$product_info) {
         View::render("not_found.php", ["message" => "Paquete no encontrado"]);
     }
 
     $is_package_in_cart = User::isPackageInCart($user_id, $producto_id);
-
+    $it_was_bought = User::getCompraByUserIdAndItem($user_id, $hotel_id, "paquete");
 
 
     View::render("paquete_view.php", [
@@ -26,6 +27,7 @@ if ($method === "GET") {
         'Paquetes_disponibles' => $product_info["paquetes_disponibles"],
         'name' => $product_info["nombre"],
         'price' => $product_info["precio"],
+        'it_was_bought' => $it_was_bought,
         'is_package_in_cart' => $is_package_in_cart,
         'limite_personas' => $product_info["limite_personas"],
         'aerolinea_ida' => $product_info["aerolinea_ida"],
@@ -46,6 +48,23 @@ if ($method === "GET") {
     $comment = $_POST["comment"];
     $rating = $_POST["rating"];
     $user_id = $_SESSION["user"]["id"];
+
+
+    $ratingPrecioCalidad = $_POST["ratingPrecioCalidad"];
+    $ratingServicio = $_POST["ratingServicio"];
+    $ratingTransporte = $_POST["ratingTransporte"];
+    $ratingCalidad = $_POST["ratingCalidad"];
+    
+    $rating = ($ratingPrecioCalidad + $ratingServicio + $ratingTransporte + $ratingCalidad) / 4;
+    
+    $ratings = [
+        "precioCalidad" => $ratingPrecioCalidad,
+        "servicio" => $ratingServicio,
+        "transporte" => $ratingTransporte,
+        "calidad" => $ratingCalidad,
+        "prom" => $rating
+    ];
+
 
     View::redirect("/paquete.php");
 }

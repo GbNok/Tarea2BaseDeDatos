@@ -93,43 +93,18 @@ CREATE TABLE compra(
 );
 
 
-DELIMITER // CREATE TRIGGER actualizar_rating
-AFTER
-INSERT
-    ON rating FOR EACH ROW BEGIN DECLARE promedio_rating DECIMAL(5, 2);
+CREATE TRIGGER actualizar_rating AFTER INSERT ON rating FOR EACH ROW
+BEGIN
+    DECLARE promedio_rating DECIMAL(5, 2);
+    
+    IF NEW.id_hotel IS NOT NULL THEN
+        SELECT AVG(rating) INTO promedio_rating
+        FROM rating
+        WHERE id_hotel = NEW.id_hotel;
+        
+        UPDATE hotel
+        SET rating = promedio_rating
+        WHERE id_hotel = NEW.id_hotel;
+    END IF;
+END;
 
-IF NEW.id_hotel IS NOT NULL THEN
-SELECT
-    AVG(rating) INTO promedio_rating
-FROM
-    rating
-WHERE
-    id_hotel = NEW.id_hotel;
-
-UPDATE
-    hotel
-SET
-    rating = promedio_rating
-WHERE
-    id_hotel = NEW.id_hotel;
-
-END IF;
-
-IF NEW.id_paquete IS NOT NULL THEN
-SELECT
-    AVG(rating) INTO promedio_rating
-FROM
-    rating
-WHERE
-    id_paquete = NEW.id_paquete;
-
-UPDATE
-    paquete
-SET
-    rating = promedio_rating
-WHERE
-    id_paquete = NEW.id_paquete;
-
-END IF;
-
-END / / DELIMITER;

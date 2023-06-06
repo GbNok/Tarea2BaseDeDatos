@@ -151,6 +151,9 @@
     <?php endif ?>
   </div>
   
+
+<?php  if(!empty($it_was_bought)) { ?>
+
   <?php if (empty($rating)){ ?>
   <h3 class="title is-3">Reseñas</h3>
   <form acction="/rating.php" method="POST" class="box">
@@ -277,9 +280,12 @@
     </div>
 </div>
 
-
-
-
-
     <?php } ?>
+<?php }  elseif (empty($rating)){   ?>
+
+  <div style="width: 200px; height: 200px; background-color: #f2f2f2; padding: 20px;">
+  <p style="text-align: center; font-weight: bold;">Para poder dar reseña debes haber comprado el producto</p>
+</div>
+
+<?  }  ?>
 </div>

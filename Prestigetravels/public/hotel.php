@@ -18,6 +18,7 @@ if ($method === "GET") {
         View::render("not_found.php", ["message" => "Hotel no encontrado"]);
     }
     $is_hotel_in_cart = User::isHotelInCart($user_id, $hotel_id);
+    $it_was_bought = User::getCompraByUserIdAndItem($user_id, $hotel_id, "hotel");
 
     View::render("hotel_view.php", [
         'hotel_id' => $hotel_id,
@@ -32,6 +33,7 @@ if ($method === "GET") {
         'pet_friendly' => $hotel_info["pet_friendly"],
         'servicio_desayuno' => $hotel_info["servicio_desayuno"],
         'is_hotel_in_cart' => $is_hotel_in_cart,
+        'it_was_bought' => $it_was_bought,
         'rating' =>  $rating
     ]);
 

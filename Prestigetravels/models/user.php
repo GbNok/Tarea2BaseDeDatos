@@ -272,4 +272,20 @@ class User
     );
     $stmt->execute([":user_id" => $user_id]);
   }
+
+  public static function getCompraByUserIdAndItem($user_id, $item_id, $item_type)
+  {
+  $stmt = DB::getInstance()->prepare(
+    "SELECT * FROM compra WHERE id_usuario = :user_id AND (:item_id = id_hotel OR :item_id = id_paquete)"
+  );
+
+  $stmt->execute([
+    ":user_id" => $user_id,
+    ":item_id" => $item_id
+  ]);
+
+  return $stmt->fetchAll();
+  }
+
+
 }
