@@ -1,6 +1,6 @@
 <form action="/cart/" method="POST">
   <input type="hidden" name="_method" value="DELETE" />
-  <input type="hidden" name="hotel_id" value="<?= $hotel_id ?>" />
+  <input type="hidden" name="<?= $type_id ?>" value="<?= $id ?>" />
   <button class="button is-light is-danger is-<?= $size ?? "normal" ?>" title="Quitar del carrito">
     <span class="icon is-small">
       <i class="fas fa-trash-alt"></i>

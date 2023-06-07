@@ -31,14 +31,59 @@
             <a href="/hotel.php?id=<?= $hotel['id_hotel'] ?>"><?= $hotel['nombre'] ?></a>
           </td>
           <td>
-            <?= '$' . number_format($hotel['precio_noche']) ?>
+            <?= '$' . number_format($hotel['precio']) ?>
           <td>
             <?= $hotel['cantidad'] ?>
           <th>
-            <?= '$' . number_format($hotel['precio_noche'] * $hotel['cantidad']) ?>
+            <?= '$' . number_format($hotel['precio'] * $hotel['cantidad']) ?>
           </th>
           <td>
-            <?php View::fragment('views/cart/remove_form.php', ["size" => "small", "hide_title" => true, "hotel_id" => $hotel['id_hotel']]) ?>
+            <?php View::fragment('views/cart/remove_form.php', ["size" => "small", "hide_title" => true, "id" => $hotel['id_hotel'], "type_id" => "hotel_id"]) ?>
+          </td>
+        </tr>
+      <?php endforeach ?>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td></td>
+        <td></td>
+        <th class="has-text-right">Total:</th>
+        <th>
+          <?= '$' . number_format($precio_total_no_discount) ?>
+        </th>
+        <td></td>
+      <tr>
+    </tfoot>
+  </table>
+  
+  <h3 class="title is-3">Paquetes</h3>
+  <table class="table is-fullwidth is-striped is-hoverable">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Precio por persona</th>
+        <th>Cantidad</th>
+        <th>Total</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($packages as $packege): ?>
+        <tr>
+          <td>
+            <a href="/paquete.php?id=<?= $packege['id_hotel'] ?>"><?= $packege['nombre'] ?></a>
+          </td>
+          <td>
+            <?= '$' . number_format($packege['precio']) ?>
+      </td>
+          <td>
+            <?= $packege['cantidad'] ?>
+      </td>
+          <th>
+            <?= '$' . number_format($packege['precio'] * $packege['cantidad']) ?>
+          </th>
+          <td>
+            <?php View::fragment('views/cart/remove_form.php', ["size" => "small", "hide_title" => true, "id" => $packege['id_paquete'], "type_id" => "package_id"]) ?>
           </td>
         </tr>
       <?php endforeach ?>
@@ -113,6 +158,12 @@
         <th class="has-text-right">Precio total </th>
         <th>
           <?= '$' . number_format($precio_total) ?>
+
+          <form action="/cart/purchase.php" method="post">
+          <input type="hidden" name="user_id" value="">
+          <button type="submit" name="comprar">Comprar</button>
+          </form>
+
         </th>
       </tr>
     </tbody>

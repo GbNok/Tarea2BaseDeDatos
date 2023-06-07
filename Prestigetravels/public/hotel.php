@@ -18,12 +18,12 @@ if ($method === "GET") {
         View::render("not_found.php", ["message" => "Hotel no encontrado"]);
     }
     $is_hotel_in_cart = User::isHotelInCart($user_id, $hotel_id);
-    $it_was_bought = User::getCompraByUserIdAndItem($user_id, $hotel_id, "hotel");
+    $it_was_bought = User::getPurchase($user_id, $hotel_id, "hotel");
 
     View::render("hotel_view.php", [
         'hotel_id' => $hotel_id,
         'name_hotel' => $hotel_info["nombre"],
-        'precio_noche' => $hotel_info["precio_noche"],
+        'precio_noche' => $hotel_info["precio"],
         'ciudad' => $hotel_info["ciudad"],
         'habitaciones_totales' => $hotel_info["habitaciones_totales"],
         'habitaciones_disponibles' => $hotel_info["habitaciones_disponibles"],
@@ -37,7 +37,7 @@ if ($method === "GET") {
         'rating' =>  $rating
     ]);
 
-} elseif ($method === "POST") {
+} elseif ($method === "POST"&& $_POST['action'] === 'Rating') {
     $comment = $_POST["comment"];
     $ratingLimpieza = $_POST["ratingLimpieza"];
     $ratingServicio = $_POST["ratingServicio"];
@@ -58,5 +58,14 @@ if ($method === "GET") {
         Rating::addComment($user_id, $comment, $hotel_id);
     }
 
+    View::redirect("/hotel.php?id=$hotel_id");
+
+
+
+
+} elseif ($method === "POST"&& $_POST['action'] === 'wishlist_add') {
+    
+    $hotel_id = $_POST["hotel_id"];
+    User::addWishlist($user_id, $hotel_id, NULL);
     View::redirect("/hotel.php?id=$hotel_id");
 }

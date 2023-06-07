@@ -57,7 +57,7 @@ class Cart
     public static function getTotalCartPrice($user_id)
     {
         $stmt = DB::getInstance()->prepare(
-            "SELECT SUM(hotel.precio_noche * carrito.cantidad) FROM carrito JOIN hotel ON hotel.id_hotel = carrito.id_hotel WHERE id_usuario = :user_id"
+            "SELECT SUM(hotel.precio * carrito.cantidad + paquete.precio * carrito.cantidad) FROM carrito JOIN hotel ON hotel.id_hotel = carrito.id_hotel JOIN paquete ON paquete.id_paquete = carrito.id_paquete WHERE id_usuario = :user_id"
         );
         $stmt->execute([":user_id" => $user_id]);
         return $stmt->fetchColumn();

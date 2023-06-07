@@ -9,17 +9,17 @@ SessionUtils::assertLoggedIn();
 
 $user_id = $_SESSION["user"]["id"];
 $method = $_SERVER["REQUEST_METHOD"];
-$producto_id = $_GET['productoId'];
+$package_id = $_GET['id'];
 
 if ($method === "GET") {
-    $product_info = Paquete::getInfo($producto_id);
-    $rating = Rating::findRating($user_id, $producto_id);
+    $product_info = Paquete::getInfo($package_id);
+    $rating = Rating::findRating($user_id, $package_id);
     if (!$product_info) {
         View::render("not_found.php", ["message" => "Paquete no encontrado"]);
     }
 
-    $is_package_in_cart = User::isPackageInCart($user_id, $producto_id);
-    $it_was_bought = User::getCompraByUserIdAndItem($user_id, $hotel_id, "paquete");
+    $is_package_in_cart = User::isPackageInCart($user_id, $package_id);
+    $it_was_bought = User::getPurchase($user_id, $package_id, "paquete");
 
 
     View::render("paquete_view.php", [
@@ -44,7 +44,7 @@ if ($method === "GET") {
 
     ]);
 
-} elseif ($method === "POST") {
+} elseif ($method === "POST"&& $_POST['action'] === 'Rating') {
     $comment = $_POST["comment"];
     $rating = $_POST["rating"];
     $user_id = $_SESSION["user"]["id"];
@@ -66,6 +66,12 @@ if ($method === "GET") {
     ];
 
 
-    View::redirect("/paquete.php");
+    View::redirect("/paquete.php?id=$package_id");
+
+} elseif ($method === "POST"&& $_POST['action'] === 'wishlist_add') {
+    
+    $package_id = $_POST["package_id"];
+    User::addWishlist($user_id, NULL, $package_id);
+    View::redirect("/paquete.php?id=$package_id");
 }
 

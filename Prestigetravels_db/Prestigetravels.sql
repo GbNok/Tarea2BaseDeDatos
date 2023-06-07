@@ -8,6 +8,7 @@ CREATE TABLE usuario (
     correo VARCHAR(100)
 );
 
+
 CREATE TABLE carrito (
     id_usuario INT,
     id_hotel INT,
@@ -38,7 +39,8 @@ CREATE TABLE wishlist (
 CREATE TABLE hotel (
     id_hotel INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100),
-    precio_noche INT,
+    tipo VARCHAR(50),
+    precio INT,
     ciudad VARCHAR(50),
     habitaciones_totales INT,
     habitaciones_disponibles INT,
@@ -66,6 +68,7 @@ CREATE TABLE rating (
 CREATE TABLE paquete (
     id_paquete INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100),
+    tipo VARCHAR(50),
     paquetes_disponibles INT,
     precio INT,
     limite_personas INT,

@@ -1,6 +1,7 @@
 INSERT INTO
   hotel (
     nombre,
+    tipo,
     precio_noche,
     ciudad,
     habitaciones_totales,
@@ -15,6 +16,7 @@ INSERT INTO
 VALUES
   (
     "Patagonico",
+    "hotel",
     130000,
     "Puerto Natales",
     20,
@@ -28,6 +30,7 @@ VALUES
   ),
   (
     "Atacama Nights",
+    "hotel",
     150000,
     "Atacama",
     15,
@@ -41,6 +44,7 @@ VALUES
   ),
   (
     "Casa Bosque",
+    "hotel",
     150000,
     "San Jose de Maipo",
     7,
@@ -57,6 +61,7 @@ VALUES
 INSERT INTO 
 paquete (
   nombre,
+  tipo,
   paquetes_disponibles,
   precio,
   limite_personas,
@@ -71,6 +76,7 @@ paquete (
   rating
 ) VALUES (
   'Nombre del paquete',
+  "paquete",
   10, -- Cantidad de paquetes disponibles
   500, -- Precio del paquete
   4, -- Límite de personas

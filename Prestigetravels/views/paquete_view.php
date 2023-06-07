@@ -104,7 +104,7 @@
 
   <div class="mb-6">
     <?php if ($is_package_in_cart): ?>
-      <?php View::fragment('views/cart/remove_form.php', ["package_id" => $package_id]) ?>
+      <?php View::fragment('views/cart/remove_form.php', ["id" => $package_id, "type_id" => "package_id"]) ?>
     <?php else: ?>
       <form action="/cart/" method="POST" class="mb-6">
         <input type="hidden" name="_method" value="POST" />
@@ -129,6 +129,18 @@
         </div>
       </form>
     <?php endif ?>
+    <div class="control">
+          <form action="paquete.php" method="post">
+            <input type="hidden" name="action" value="wishlist_add">
+            <input type="hidden" name="package_id" value="<?= $package_id ?>">
+            <button type="submit" class="button is-light">
+              <span class="icon is-small">
+                <i class="fas fa-heart"></i>
+              </span>
+              <span>Agregar a Wishlist</span>
+            </button>
+          </form>
+        </div>
   </div>
   
 
@@ -138,6 +150,7 @@
   <h3 class="title is-3">Reseñas</h3>
   <form acction="/rating.php" method="POST" class="box">
     <input class="input" type="text" placeholder="comentario (opcional)" name="comment">
+    <input type="hidden" name="action" value="Rating">
 
     <div class="field">
     <label class="label">Calidad de los Hoteles</label>
@@ -271,6 +284,6 @@
 <p style="text-align: center; font-weight: bold;">Para poder dar reseña debes haber comprado el producto</p>
 </div>
 
-<?  }  ?>
+<?php  }  ?>
 </div>
 

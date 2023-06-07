@@ -11,9 +11,21 @@ $method = $_SERVER["REQUEST_METHOD"];
 if ($method === "GET") {
     $wishlist = User::getWishlist($user_id);
     View::render("wishlist_view.php", [
-        "page_hero" => "Wish List",
+        "page_hero" => "WishList",
         "wishlist" => $wishlist
     ]);
-} elseif ($method === "POST") {
-    // edit wishlist
+
+
+} elseif ($method === "POST" && $_POST['action'] === 'remove') {
+
+    $remove_hotel = $_POST["hotel_id"];
+    $remove_package = $_POST["package_id"];
+    
+    User::removeFromWishList($user_id, $remove_hotel, $remove_package);
+    header("Location: wishlist.php");
+    exit();
 }
+
+
+
+

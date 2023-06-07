@@ -9,11 +9,11 @@
       <div class="media-content">
         <p class="title is-4">
           <a
-            href="<?php echo $product['type'] === 'hotel' ? 'hotel.php?id=' : 'paquete.php?productoId=' ?><?php echo $product['id']; ?>">
-            <?= $product['name'] ?> </a>
+            href="<?php echo $product['tipo'] === 'hotel' ? 'hotel.php?id=' : 'paquete.php?id=' ?><?php echo $product['id']; ?>">
+            <?= $product['nombre'] ?> </a>
         </p>
         <p class="subtitle is-6">
-          <?= $product['type'] == 'package' ? 'Paquete' : 'Hotel' ?>
+          <?= $product['tipo'] == 'paquete' ? 'Paquete' : 'Hotel' ?>
           <span class="is-pulled-right">
             <span class="icon-text">
               <span class="icon is-small">
@@ -34,11 +34,11 @@
       </p>
       <ul>
         <li><b>Precio:</b> $
-          <?= $product['price'] ?> <i>(Por
-            <?= $product['type'] === 'hotel' ? 'por noche' : 'por persona' ?>)
+          <?= $product['precio'] ?> <i>(Por
+            <?= $product['tipo'] === 'hotel' ? 'por noche' : 'por persona' ?>)
           </i>
         </li>
-        <li><b>Cupos:</b> $
+        <li><b>Cupos:</b> 
           <?= $product['available_qty'] ?>
         </li>
       </ul>
@@ -46,8 +46,8 @@
   </div>
   <footer class="card-footer">
     <a class="card-footer-item"
-      href="<?php echo $product['type'] === 'hotel' ? 'hotel.php?id=' : 'paquete.php?productoId=' ?><?php echo $product['id']; ?>">Ver
+      href="<?php echo $product['tipo'] === 'hotel' ? 'hotel.php?id=' : 'paquete.php?id=' ?><?php echo $product['id']; ?>">Ver
       Más</a>
-    <a class="card-footer-item" name="wishlist_add" value=<?php $product["id"] ?>>+ Wishlist</a>
+    <!-- <a class="card-footer-item" name="wishlist_add" value=<?php $product['id'] ?>>+ Wishlist</a> -->
   </footer>
 </div>

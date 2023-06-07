@@ -22,41 +22,43 @@ class Product {
         );
         $stmt->execute([":res_id" => $res_id, ":cart_id" => $cart_id]);
     }
-    public static function findHighestAvailability(){
+
+    public static function findHighestAvailability()
+    {
         $stmt = DB::getInstance()->prepare("
-            SELECT id_hotel AS id, nombre, habitaciones_disponibles AS cantidad
+            SELECT id_hotel AS id, 'hotel' AS tipo, nombre, precio, rating, habitaciones_disponibles AS available_qty
             FROM hotel
             UNION ALL
-            SELECT id_paquete AS id, nombre, cantidad
+            SELECT id_paquete AS id, 'paquete' AS tipo, nombre, precio, rating, paquetes_disponibles AS available_qty
             FROM paquete
         ");
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         usort($result, function($a, $b) {
-            return $b['cantidad'] - $a['cantidad'];
+            return $b['available_qty'] - $a['available_qty'];
         });
-        return array_slice($result, 0, 4);
-    }
-    public static function findHighestRatedHotels(){
-        $stmt = DB::getInstance()->prepare("
-            SELECT id_hotel AS id, nombre, rating
-            FROM hotel
-            ORDER BY rating DESC
-            LIMIT 10
-        ");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        return $result;
     }
 
-    public static function findHighestRatedPackages(){
+    public static function findHighest_rated()
+    {
         $stmt = DB::getInstance()->prepare("
-            SELECT id_paquete AS id, nombre, rating
-            FROM paquete
-            ORDER BY rating DESC
-            LIMIT 10
+        (SELECT id_hotel AS id, 'hotel' AS tipo, nombre, precio, rating, habitaciones_disponibles AS available_qty
+        FROM hotel
+        ORDER BY rating DESC
+        LIMIT 10)
+        UNION ALL
+        (SELECT id_paquete AS id, 'paquete' AS tipo, nombre, precio, rating, paquetes_disponibles AS available_qty
+        FROM paquete
+        ORDER BY rating DESC
+        LIMIT 10)
         ");
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        return $result;
     }
+    
 
 }

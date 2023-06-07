@@ -124,7 +124,7 @@
 
   <div class="mb-6">
     <?php if ($is_hotel_in_cart): ?>
-      <?php View::fragment('views/cart/remove_form.php', ["hotel_id" => $hotel_id]) ?>
+      <?php View::fragment('views/cart/remove_form.php', ["id" => $hotel_id, "type_id" => "hotel_id"]) ?>
     <?php else: ?>
       <form action="/cart/" method="POST" class="mb-6">
         <input type="hidden" name="_method" value="POST" />
@@ -149,6 +149,18 @@
         </div>
       </form>
     <?php endif ?>
+    <div class="control">
+          <form action="hotel.php" method="post">
+            <input type="hidden" name="action" value="wishlist_add">
+            <input type="hidden" name="hotel_id" value="<?= $hotel_id ?>">
+            <button type="submit" class="button is-light">
+              <span class="icon is-small">
+                <i class="fas fa-heart"></i>
+              </span>
+              <span>Agregar a Wishlist</span>
+            </button>
+          </form>
+        </div>
   </div>
   
 
@@ -158,6 +170,7 @@
   <h3 class="title is-3">Reseñas</h3>
   <form acction="/rating.php" method="POST" class="box">
     <input class="input" type="text" placeholder="comentario (opcional)" name="comment">
+    <input type="hidden" name="action" value="Rating">
     <!-- <input class="input" type="number" placeholder="rating" name="rating"> -->  
     <div class="field">
     <label class="label">Limpieza</label>
@@ -230,7 +243,7 @@
         </div>
     </div>
 </div>
-
+    
     <button> Publicar </button>
   </form>
   <?php } elseif (!empty($rating)){ ?>
@@ -287,5 +300,5 @@
   <p style="text-align: center; font-weight: bold;">Para poder dar reseña debes haber comprado el producto</p>
 </div>
 
-<?  }  ?>
+<?php  }  ?>
 </div>

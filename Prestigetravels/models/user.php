@@ -132,6 +132,22 @@ class User
     }
   }
 
+  public static function removeFromWishList($user_id, $hotel_id, $package_id){
+    if (isset($hotel_id)) {
+      $stmt = DB::getInstance()->prepare(
+        "DELETE FROM wishlist WHERE id_usuario = :user_id and id_hotel = :hotel_id"
+      );
+      $stmt->execute([":user_id" => $user_id, ":hotel_id" => $hotel_id]);
+    } elseif (isset($package_id)) {
+      $stmt = DB::getInstance()->prepare(
+        "DELETE FROM wishlist WHERE id_usuario = :user_id and id_paquete = :package_id"
+      );
+      $stmt->execute([":user_id" => $user_id, ":package_id" => $package_id]);
+
+    }
+
+  }
+
   public static function addToCart($user_id, $hotel_id, $package_id, $quantity)
   {
     if (isset($hotel_id)) {
@@ -145,12 +161,13 @@ class User
       ]);
     } elseif (isset($package_id)) {
       $stmt = DB::getInstance()->prepare(
-        "INSERT INTO carrito(id_usuario, id_paquete) VALUES (:user_id, :package_id)"
+        "INSERT INTO carrito(id_usuario, id_paquete, cantidad) VALUES (:user_id, :package_id, :quantity)"
       );
 
       $stmt->execute([
         ":user_id" => $user_id,
         ":package_id" => $package_id,
+        ":quantity" => $quantity
       ]);
     }
   }
@@ -250,7 +267,7 @@ class User
   }
 
 
-  public static function comprar($user_id)
+  public static function purchase($user_id)
   {
     $hotels = self::getCartHotels($user_id);
     $packages = self::getCartPackages($user_id);
@@ -273,7 +290,7 @@ class User
     $stmt->execute([":user_id" => $user_id]);
   }
 
-  public static function getCompraByUserIdAndItem($user_id, $item_id, $item_type)
+  public static function getPurchase($user_id, $item_id, $item_type)
   {
   $stmt = DB::getInstance()->prepare(
     "SELECT * FROM compra WHERE id_usuario = :user_id AND (:item_id = id_hotel OR :item_id = id_paquete)"
