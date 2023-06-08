@@ -13,7 +13,7 @@ $hotel_id = $_GET['id'];
 
 if ($method === "GET") {
     $hotel_info = Hotel::getInfo($hotel_id);
-    $rating = Rating::findRating($user_id, $hotel_id);
+    $rating = Rating::findRating($user_id, $hotel_id, null);
     if (!$hotel_info) {
         View::render("not_found.php", ["message" => "Hotel no encontrado"]);
     }
@@ -53,9 +53,9 @@ if ($method === "GET") {
         "calidadCamas" => $ratingCalidadCamas,
         "prom" => $rating];
 
-    Rating::addRating($user_id, $ratings, $hotel_id);
+    Rating::addRating($user_id, $ratings, $hotel_id, null);
     if (isset($comment)) {
-        Rating::addComment($user_id, $comment, $hotel_id);
+        Rating::addComment($user_id, $comment, $hotel_id, null);
     }
 
     View::redirect("/hotel.php?id=$hotel_id");
@@ -68,4 +68,9 @@ if ($method === "GET") {
     $hotel_id = $_POST["hotel_id"];
     User::addWishlist($user_id, $hotel_id, NULL);
     View::redirect("/hotel.php?id=$hotel_id");
-}
+} elseif ($method === "POST"&& $_POST['action'] === 'Rating_delete') {
+    
+    $hotel_id = $_POST["idhotel"];
+    Rating::deleteHotelRating($user_id,$hotel_id);
+    View::redirect("/hotel.php?id=$hotel_id");
+} 

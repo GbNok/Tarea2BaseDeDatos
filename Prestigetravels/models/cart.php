@@ -53,11 +53,28 @@ class Cart
         return $productos;
     }
 
+    public static function getTotalCartHotel($user_id){
+        $stmt = DB::getInstance()->prepare(
+            "SELECT SUM(IFNULL(hotel.precio, 0) * IFNULL(cantidad, 0)) FROM carrito LEFT OUTER JOIN hotel ON hotel.id_hotel = carrito.id_hotel WHERE id_usuario = :user_id"
+        );
+        $stmt->execute([":user_id" => $user_id]);
+        return $stmt->fetchColumn();
+    }
+    
+    public static function getTotalCartPackage($user_id){
+        $stmt = DB::getInstance()->prepare(
+            "SELECT SUM(IFNULL(paquete.precio, 0) * IFNULL(cantidad, 0)) FROM carrito LEFT OUTER JOIN paquete ON paquete.id_paquete = carrito.id_paquete WHERE id_usuario = :user_id"
+        );
+        $stmt->execute([":user_id" => $user_id]);
+        return $stmt->fetchColumn();
+    }
+
+
 
     public static function getTotalCartPrice($user_id)
     {
         $stmt = DB::getInstance()->prepare(
-            "SELECT SUM(hotel.precio * carrito.cantidad + paquete.precio * carrito.cantidad) FROM carrito JOIN hotel ON hotel.id_hotel = carrito.id_hotel JOIN paquete ON paquete.id_paquete = carrito.id_paquete WHERE id_usuario = :user_id"
+            "SELECT SUM(IFNULL(hotel.precio, 0) * carrito.cantidad + IFNULL(paquete.precio, 0) * carrito.cantidad) FROM carrito LEFT OUTER JOIN hotel ON hotel.id_hotel = carrito.id_hotel LEFT OUTER JOIN paquete ON paquete.id_paquete = carrito.id_paquete WHERE id_usuario = :user_id"
         );
         $stmt->execute([":user_id" => $user_id]);
         return $stmt->fetchColumn();

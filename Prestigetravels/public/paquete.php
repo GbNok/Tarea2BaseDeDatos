@@ -13,7 +13,7 @@ $package_id = $_GET['id'];
 
 if ($method === "GET") {
     $product_info = Paquete::getInfo($package_id);
-    $rating = Rating::findRating($user_id, $package_id);
+    $rating = Rating::findRating($user_id, null, $package_id);
     if (!$product_info) {
         View::render("not_found.php", ["message" => "Paquete no encontrado"]);
     }
@@ -40,7 +40,8 @@ if ($method === "GET") {
         'name_hotel_3' => Hotel::getName($product_info["hospedaje3"]),
         'hospedaje1' => $product_info["hospedaje1"],
         'hospedaje2' => $product_info["hospedaje2"],
-        'hospedaje3' => $product_info["hospedaje3"]
+        'hospedaje3' => $product_info["hospedaje3"],
+        'rating' => $rating,
 
     ]);
 
@@ -50,21 +51,25 @@ if ($method === "GET") {
     $user_id = $_SESSION["user"]["id"];
 
 
-    $ratingPrecioCalidad = $_POST["ratingPrecioCalidad"];
-    $ratingServicio = $_POST["ratingServicio"];
-    $ratingTransporte = $_POST["ratingTransporte"];
-    $ratingCalidad = $_POST["ratingCalidad"];
+    $ratingPrecioCalidad = $_POST["ratingpreciocalidad"];
+    $ratingServicio = $_POST["ratingservicio"];
+    $ratingTransporte = $_POST["ratingtransporte"];
+    $ratingCalidad = $_POST["ratingcalidad"];
     
     $rating = ($ratingPrecioCalidad + $ratingServicio + $ratingTransporte + $ratingCalidad) / 4;
     
     $ratings = [
-        "precioCalidad" => $ratingPrecioCalidad,
-        "servicio" => $ratingServicio,
+        "hoteles" => $ratingCalidad,
         "transporte" => $ratingTransporte,
-        "calidad" => $ratingCalidad,
+        "servicio" => $ratingServicio,
+        "precio_calidad" => $ratingPrecioCalidad,
         "prom" => $rating
     ];
 
+    Rating::addRating($user_id, $ratings, null, $package_id);
+    if (isset($comment)) {
+        Rating::addComment($user_id, $comment, null, $package_idl);
+    }
 
     View::redirect("/paquete.php?id=$package_id");
 
@@ -73,5 +78,10 @@ if ($method === "GET") {
     $package_id = $_POST["package_id"];
     User::addWishlist($user_id, NULL, $package_id);
     View::redirect("/paquete.php?id=$package_id");
-}
+} elseif ($method === "POST"&& $_POST['action'] === 'Rating_delete') {
+    
+    $package_id = $_POST["idpaquete"];
+    Rating::deletePaqueteRating(user_id,package_id);
+    View::redirect("/paquete.php?id=$package_id");
+} 
 

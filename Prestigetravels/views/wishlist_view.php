@@ -7,6 +7,7 @@
                     $id = $elem["id_hotel"];
                     $hotel_id = $elem["id_hotel"];
                     $package_id = NULL;
+
                 }elseif ($elem["tipo"] === "paquete"){
                     $id = $elem["id_paquete"];
                     $package_id = $elem["id_paquete"];
@@ -68,14 +69,15 @@
                             </div>
                         </div>
                         <footer class="card-footer">
+                            
                             <a class="card-footer-item" href="<?php echo $elem['tipo'] === 'hotel' ? 'hotel.php?id=' : 'paquete.php?productoId=' ?><?php echo $id; ?>">Ver Más</a>
                             <form action="wishlist.php" method="post">
                             <input type="hidden" name="action" value="remove">
-                            <input type="hidden" name="hotel_id" value="<?= $hotel_id ?>">
-                            <input type="hidden" name="package_id" value="<?= $package_id ?>">
+                            <input type="hidden" name="id" value="<?= $id ?>">
+                            <input type="hidden" name="tipo" value="<?= $elem['tipo'] ?>">
                             <button type="submit" class="card-footer-item link-button">Eliminar de Wishlist</button>
-                          
                             </form>
+                            
                         </footer>
                     </div>
                 </div>

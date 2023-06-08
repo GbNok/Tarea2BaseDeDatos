@@ -20,7 +20,7 @@ class Hotel
     public static function getInfo($hotel_id)
     {
         $stmt = DB::getInstance()->prepare(
-            "SELECT * FROM hotel WHERE id_hotel = :hotel_id"
+            "CALL getHotel(:hotel_id)"
         );
         $stmt->execute(['hotel_id' => $hotel_id]);
 
@@ -31,7 +31,7 @@ class Hotel
     public static function getName($hotel_id)
     {
     $stmt = DB::getInstance()->prepare(
-        "SELECT nombre FROM hotel WHERE id_hotel = :hotel_id"
+        "CALL getHotel(:hotel_id)"
     );
     $stmt->execute(['hotel_id' => $hotel_id]);
 
@@ -39,4 +39,20 @@ class Hotel
     return $result['nombre'];
     }
 
+    public static function getCities(){
+        $stmt = DB::getInstance()->prepare(
+            "SELECT DISTINCT ciudad FROM hotel"
+        );
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public static function getHotelsInCity($city){
+        $stmt = DB::getInstance()->prepare(
+            "SELECT id_hotel AS id, 'hotel' AS tipo, nombre, precio, rating, habitaciones_disponibles AS available_qty FROM hotel WHERE ciudad = :city"
+        );
+        $stmt->execute([":city" => $city]);
+        return $stmt->fetchAll();
+    }   
 }
+

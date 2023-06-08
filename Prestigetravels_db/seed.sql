@@ -55,6 +55,76 @@ VALUES
     TRUE,
     TRUE,
     3.7
+  ),
+  (
+    "Sueños del Sur",
+    "hotel",
+    100000,
+    "Coyhaique",
+    10,
+    4,
+    FALSE,
+    TRUE,
+    FALSE,
+    TRUE,
+    FALSE,
+    3.7
+  ),
+  (
+    "Maravillas del desierto",
+    "hotel",
+    350000,
+    "San Pedro de Atacama",
+    7,
+    4,
+    FALSE,
+    TRUE,
+    FALSE,
+    FALSE,
+    TRUE,
+    3.7
+  ),
+  (
+    "Noche sin Luna",
+    "hotel",
+    125000,
+    "San Jose de Maipo",
+    7,
+    4,
+    TRUE,
+    FALSE,
+    FALSE,
+    TRUE,
+    FALSE,
+    3.7
+  ),
+  (
+    "La Rueda",
+    "hotel",
+    150000,
+    "Coyhaique",
+    7,
+    4,
+    TRUE,
+    TRUE,
+    FALSE,
+    TRUE,
+    TRUE,
+    3.7
+  ),
+  (
+    "Casa Bosque",
+    "hotel",
+    150000,
+    "San Jose de Maipo",
+    7,
+    4,
+    TRUE,
+    TRUE,
+    TRUE,
+    TRUE,
+    TRUE,
+    3.7
   );
 
 

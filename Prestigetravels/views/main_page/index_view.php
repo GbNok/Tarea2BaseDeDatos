@@ -1,6 +1,6 @@
 <?php require_once '../core/index.php' ?>
-<?php if (21 <= 20) {?>
-  <!-- $randomNumber -->
+<?php if ($randomNumber <= 20) {?>
+
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 

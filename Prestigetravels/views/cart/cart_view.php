@@ -49,7 +49,7 @@
         <td></td>
         <th class="has-text-right">Total:</th>
         <th>
-          <?= '$' . number_format($precio_total_no_discount) ?>
+          <?= '$' . number_format($precio_hoteles) ?>
         </th>
         <td></td>
       <tr>
@@ -94,7 +94,7 @@
         <td></td>
         <th class="has-text-right">Total:</th>
         <th>
-          <?= '$' . number_format($precio_total_no_discount) ?>
+          <?= '$' . number_format($precio_paquetes) ?>
         </th>
         <td></td>
       <tr>
@@ -167,4 +167,5 @@
         </th>
       </tr>
     </tbody>
-  </table>
+  </table>>
+        <td></td

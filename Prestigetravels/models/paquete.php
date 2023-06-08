@@ -29,4 +29,14 @@ class Paquete
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    public static function getName($paquete_id)
+    {
+    $stmt = DB::getInstance()->prepare(
+        "SELECT nombre FROM paquete WHERE id_paquete = :hotel_id"
+    );
+    $stmt->execute(['hotel_id' => $paquete_id]);
+
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['nombre'];
+    }
 }

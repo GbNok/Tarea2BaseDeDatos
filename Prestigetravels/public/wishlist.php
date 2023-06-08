@@ -18,10 +18,10 @@ if ($method === "GET") {
 
 } elseif ($method === "POST" && $_POST['action'] === 'remove') {
 
-    $remove_hotel = $_POST["hotel_id"];
-    $remove_package = $_POST["package_id"];
+    $id = $_POST["id"];
+    $tipo = $_POST["tipo"];
     
-    User::removeFromWishList($user_id, $remove_hotel, $remove_package);
+    User::removeFromWishList($user_id, $id, $tipo);
     header("Location: wishlist.php");
     exit();
 }

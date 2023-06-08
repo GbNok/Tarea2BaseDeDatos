@@ -24,13 +24,15 @@
         <div class="control">
           <div class="select">
             <select name="city">
-              <!-- TODO get these from DB and iterate -->
               <option value="all" <?= $city === 'all' ? 'selected' : '' ?>>Todas</option>
-              <option value="1" <?= $city === '1' ? 'selected' : '' ?>>El Cajon del Maipo</option>
-              <option value="2" <?= $city === '2' ? 'selected' : '' ?>>Viña del Mar</option>
+              <?php foreach($cities as &$curr_city){ ?>
+              <!-- TODO get these from DB and iterate -->
+              <option value="<?= $curr_city["ciudad"] ?>" <?= $city === $curr_city ? 'selected' : '' ?>><?= $curr_city["ciudad"] ?></option>
+              <!-- <option value="2" <?= $city === '2' ? 'selected' : '' ?>>Viña del Mar</option>
               <option value="3" <?= $city === '3' ? 'selected' : '' ?>>Valparaiso</option>
               <option value="4" <?= $city === '4' ? 'selected' : '' ?>>Torres del Paine</option>
-              <option value="5" <?= $city === '5' ? 'selected' : '' ?>>Atacama</option>
+              <option value="5" <?= $city === '5' ? 'selected' : '' ?>>Atacama</option> -->
+              <?php }?>
             </select>
           </div>
         </div>
@@ -42,7 +44,7 @@
         <div class="control">
           <div class="select">
             <select name="product_type">
-              <option value="hotels_and_packages" <?= $product_type === 'hotels_and_packages' ? 'selected' : '' ?>>
+              <option value="hotel_and_packages" <?= $product_type === 'hotels_and_packages' ? 'selected' : '' ?>>
                 Ambos
               </option>
               <option value="hotels" <?= $product_type === 'hotels' ? 'selected' : '' ?>>Hoteles</option>
@@ -60,6 +62,32 @@
         </div>
         <div class="control">
           <button class="button is-info">Buscar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <div class="field">
+        <label class="label">Precio mínimo</label>
+        <div class="control">
+        <input name="min_price" type="number" class="input" value="<?= $min_price ?? 0 ?>">
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="field">
+        <label class="label">Precio máximo</label>
+        <div class="control">
+        <input name="max_price" type="number" class="input" value="<?= $max_price !== null ? $max_price : 999999999 ?>">
+        </div>
+      </div>
+  </div>
+  <div class="column">
+      <div class="field">
+        <label class="label">Rating minimo</label>
+        <div class="control">
+        <input name="min_rating" type="number" class="input" value="" min="1" max="5">
         </div>
       </div>
     </div>

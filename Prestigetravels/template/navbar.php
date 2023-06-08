@@ -76,7 +76,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                 <i class="fas fa-heart"></i>
               </span>
               <span>Wishlist
-                <?= '(' . ($wishlist_item_count ?? 0) . ')' ?>
+                
               </span>
               </a>
 

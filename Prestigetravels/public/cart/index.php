@@ -12,6 +12,8 @@ if ($method === "GET") {
     $hotels = User::getCartHotels($user_id);
     $packages = User::getCartPackages($user_id);
 
+    $hotel_precio = Cart::getTotalCartHotel($user_id);
+    $paquete_precio = Cart::getTotalCartPackage($user_id);
     $precio_total = Cart::getTotalCartPrice($user_id);
     $descuento = isset($_SESSION['discount']) ? $_SESSION['discount'] : 0;
 
@@ -20,6 +22,8 @@ if ($method === "GET") {
         'hotels' => $hotels,
         'packages' => $packages,
         'precio_total_no_discount' => $precio_total,
+        'precio_hoteles' => $hotel_precio,
+        'precio_paquetes' => $paquete_precio,
         'precio_total' => $precio_total * (1 - $descuento),
         'descuento' => $descuento
     ]);

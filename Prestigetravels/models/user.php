@@ -132,17 +132,17 @@ class User
     }
   }
 
-  public static function removeFromWishList($user_id, $hotel_id, $package_id){
-    if (isset($hotel_id)) {
+  public static function removeFromWishList($user_id, $id, $tipo){
+    if ($tipo =="hotel") {
       $stmt = DB::getInstance()->prepare(
         "DELETE FROM wishlist WHERE id_usuario = :user_id and id_hotel = :hotel_id"
       );
-      $stmt->execute([":user_id" => $user_id, ":hotel_id" => $hotel_id]);
-    } elseif (isset($package_id)) {
+      $stmt->execute([":user_id" => $user_id, ":hotel_id" => $id]);
+    } elseif ($tipo =="paquete") {
       $stmt = DB::getInstance()->prepare(
         "DELETE FROM wishlist WHERE id_usuario = :user_id and id_paquete = :package_id"
       );
-      $stmt->execute([":user_id" => $user_id, ":package_id" => $package_id]);
+      $stmt->execute([":user_id" => $user_id, ":package_id" => $id]);
 
     }
 
@@ -274,15 +274,15 @@ class User
 
     foreach($hotels as &$hotel){
       $stmt = DB::getInstance()->prepare(
-        "INSERT INTO compra(id_usuario, id_hotel) VALUES (:user_id, :hotel_id)"
+        "INSERT INTO compra(id_usuario, id_hotel, cantidad) VALUES (:user_id, :hotel_id, :quantity)"
       );
-      $stmt->execute([":user_id" => $user_id, ":hotel_id" => $hotel["id_hotel"]]);
+      $stmt->execute([":user_id" => $user_id, ":hotel_id" => $hotel["id_hotel"], ":quantity" => $hotel["cantidad"]]);
     }
     foreach($packages as &$package){
       $stmt = DB::getInstance()->prepare(
-        "INSERT INTO compra(id_usuario, id_paquete) VALUES (:user_id, :package_id)"
+        "INSERT INTO compra(id_usuario, id_paquete, cantidad) VALUES (:user_id, :package_id, :quantity)"
       );
-      $stmt->execute([":user_id" => $user_id, ":package_id" => $hotel["id_paquete"]]);
+      $stmt->execute([":user_id" => $user_id, ":package_id" => $package["id_paquete"], ":quantity" => $package["cantidad"]]);
     }
     $stmt = DB::getInstance()->prepare(
       "DELETE FROM carrito WHERE id_usuario = :user_id"
